@@ -8,7 +8,10 @@ class GameBoard:
         self.board = [[' ' for _ in range(cols)] for _ in range(rows)]
 
     def draw_board(self):
-        # the method [draw_board] draws the board with the informations in [rows] & [cols]
+        '''
+        the method [draw_board] draws the board with 
+        the informations in [rows] & [cols]
+        '''
         
         # creates the first top border of the board in relation to the amount in [cols]
         print('+' + ('---+' * self.cols))
@@ -25,9 +28,12 @@ class GameBoard:
 
 
     def insert_token(self, col, tkn):
-        # the method [insert_token] checks
-        # if its possible to insert a token [tkn] in a Column [col] 
-        # and insert the token in this column if its possbile
+        '''
+        the method [insert_token] checks
+        if its possible to insert a token [tkn] in a Column [col] 
+        and insert the token in this column if its possbile.
+        The method return True if it was succesfull and False if not
+        '''
         
         # checks if its possbile to set the token [tkn] in the specified column [col]
         if col < 0 or col >= self.cols:
@@ -44,4 +50,38 @@ class GameBoard:
                 return True
 
         print(f"Column {col} is full.")
+        return False
+    
+    def check_winner(self, tkn):
+        """
+        checks if a player with a given token [tkn] has won, if so the method
+        return True if not the method return False.
+        a player won if he has four of his tokens in a row/column or diagonal connected.
+        """
+        
+        # checks horizontal lines
+        for row in range(self.rows):
+            for col in range(self.cols - 3):
+                if all(self.board[row][col + i] == tkn for i in range(4)):
+                    return True
+
+        # checks vertical lines
+        for col in range(self.cols):
+            for row in range(self.rows - 3):
+                if all(self.board[row + i][col] == tkn for i in range(4)):
+                    return True
+
+        # check diagonals from the top right to the bottom left
+        for row in range(self.rows - 3):
+            for col in range(self.cols - 3):
+                if all(self.board[row + i][col + i] == tkn for i in range(4)):
+                    return True
+
+        # checks diagonals from the left top to the right bottom
+        for row in range(self.rows - 3):
+            for col in range(3, self.cols):
+                if all(self.board[row + i][col - i] == tkn for i in range(4)):
+                    return True
+
+        # no winning line found
         return False
