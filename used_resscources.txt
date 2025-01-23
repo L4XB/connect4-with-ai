@@ -1,0 +1,2 @@
+1. https://realpython.com/python-comments-guide/
+    -> used to get best practices at python comments
