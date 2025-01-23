@@ -1,5 +1,5 @@
 from constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL, AMOUNT_COLUMNS, AMOUNT_ROWS
-from env.game_board import GameBoard
+from enviroment.game_board import GameBoard
 
 board = GameBoard(AMOUNT_ROWS, AMOUNT_COLUMNS)
 
