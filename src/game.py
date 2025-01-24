@@ -1,7 +1,11 @@
 from constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL, AMOUNT_COLUMNS, AMOUNT_ROWS
 from enviroment.game_board import GameBoard
+from agents.random_agent import RandomAgent
 
 board = GameBoard(AMOUNT_ROWS, AMOUNT_COLUMNS)
+
+random_Agent = RandomAgent(AMOUNT_ROWS, AMOUNT_COLUMNS)
+
 
 board.insert_token(3, PLAYER_ONE_SYMBOL)
 board.insert_token(3, PLAYER_TWO_SYMBOL)
@@ -10,3 +14,5 @@ board.insert_token(6, PLAYER_TWO_SYMBOL)
 
 
 board.draw_board()
+
+print(random_Agent.get_possible_moves(board.board))

@@ -109,6 +109,7 @@ class GameBoard:
         The method return True if no one of the player wo and the board is full otherwise the method
         returns False
         '''
+        
         player_one_winner = self.check_winner(PLAYER_ONE_SYMBOL)
         player_two_winner = self.check_winner(PLAYER_TWO_SYMBOL)
         board_is_full = self.is_board_full()
