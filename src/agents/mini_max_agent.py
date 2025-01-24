@@ -99,9 +99,16 @@ class MiniMaxAgent:
         return score
 
     def _evaluate_line(self, line):
+        '''
+        the private method [_evaluate_line] returns a evaluation of a line [line].
+        It checks how many symbols the player have in a row in relation to the opponent.
+        '''
+        
+        # checks how many symbols the player and the opponent have in a line
         player_count = line.count(self.symbol)
         opponent_count = line.count(self.opponent_symbol)
         
+        # returns diffrent evaluations fr diffrent states.
         if opponent_count == 3 and player_count == 0:
             return -100
         if player_count == 3 and opponent_count == 0:
