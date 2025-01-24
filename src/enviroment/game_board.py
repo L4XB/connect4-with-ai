@@ -113,3 +113,36 @@ class GameBoard:
         return not self.check_winner(PLAYER_ONE_SYMBOL) and not self.check_winner(PLAYER_TWO_SYMBOL) and self.is_board_full()
     
     
+    def get_winning_pattern(self, tkn):
+        """
+        the method [get_winning_pattern] checks the winning pattern (horizontal, vertical, or diagonal)
+        for a given token [tkn] and returns the type of pattern as a string.
+        """
+        
+        # checks horizontal lines
+        for row in range(self.rows):
+            for col in range(self.cols - 3):
+                if all(self.board[row][col + i] == tkn for i in range(4)):
+                    return "horizontal"
+
+        # checks vertical lines
+        for col in range(self.cols):
+            for row in range(self.rows - 3):
+                if all(self.board[row + i][col] == tkn for i in range(4)):
+                    return "vertical"
+
+        # check diagonals from the top right to the bottom left
+        for row in range(self.rows - 3):
+            for col in range(self.cols - 3):
+                if all(self.board[row + i][col + i] == tkn for i in range(4)):
+                    return "diagonal"
+
+        # checks diagonals from the left top to the right bottom
+        for row in range(self.rows - 3):
+            for col in range(3, self.cols):
+                if all(self.board[row + i][col - i] == tkn for i in range(4)):
+                    return "diagonal"
+
+        # no winning pattern found (should not happen if check_winner returned True)
+        return None
+    
