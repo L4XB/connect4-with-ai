@@ -61,17 +61,42 @@ class MiniMaxAgent:
         return rd.choice(best_moves) if best_moves else self._random_move(board)
 
     def _minimax(self, board, depth, alpha, beta, maximizing_player):
+        '''
+        the private method [_minimax] implements the minimax alorithm. The method checks all possible
+        moves on a board [board] with the amount of steps [depth] in the future and evaluats them, to 
+        pick the best possible move.
+        [board] is the current gameboard
+        [depth] is the maximum depth to wich the algorithmen searches
+        [alpha] is the best current value the maximizer can guarantee
+        [beta] is the best current value the minimizer can guarantee
+        [maximizing_player] a Boolean value that indicates whether the current player 
+        is the maximiser (True) or the minimiser (False).
+        '''
+        
+        # if the game has ended or the search is finished the score of the
+        # heuristic evaluation of the current board will be retuned
         if depth == 0 or self._is_terminal(board):
             return self._heuristic_evaluation(board)
             
         possible_moves = self._get_possible_moves(board)
         
+        
         if maximizing_player:
             max_eval = -math.inf
+            
+            # interrates over all possible moves
             for col in possible_moves:
+                
+                # create a copy of the current game boarx
                 board_copy = copy.deepcopy(board)
+                
+                # play the current move 
                 self._play_move(board_copy, col, self.symbol)
+                
+                # calls the function [_minimax] recursively with the new game state
                 eval = self._minimax(board_copy, depth - 1, alpha, beta, False)
+                
+                # updates the current maximal evaluation if the new evaluations is higher
                 max_eval = max(max_eval, eval)
                 alpha = max(alpha, eval)
                 if beta <= alpha:
@@ -79,10 +104,20 @@ class MiniMaxAgent:
             return max_eval
         else:
             min_eval = math.inf
+            
+            # interrates over all possible moves
             for col in possible_moves:
+                
+                # create a copy of the current game board
                 board_copy = copy.deepcopy(board)
+                
+                # play the current move 
                 self._play_move(board_copy, col, self.opponent_symbol)
+                
+                 # calls the function [_minimax] recursively with the new game state
                 eval = self._minimax(board_copy, depth - 1, alpha, beta, True)
+                
+                # updates the current minimal evaluation if the new evaluations is lower
                 min_eval = min(min_eval, eval)
                 beta = min(beta, eval)
                 if beta <= alpha:
