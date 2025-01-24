@@ -16,9 +16,19 @@ class SmartAgent:
         self.opponent_symbol = PLAYER_TWO_SYMBOL if symbol == PLAYER_ONE_SYMBOL else PLAYER_ONE_SYMBOL
 
     def get_move(self, board):
+        '''
+        the method [get_move] uses the follwonign rules to check for a possible move:
+        Step 1: Check for a winning move.
+        Step 2: If yes play it.
+        Step 3: If not, check for a move to block the opponent’s game.
+        Step 4: If yes block it.
+        Step 5: In none of the above move exists, just place the disc on any empty cell.
+        
+        And returns the move who the agent decided for
+        '''
         possible_moves = self._get_possible_moves(board)
         
-        # Prüfe auf Gewinnzug
+        # check for winning move
         for move in range(len(possible_moves)):
             board_copy = copy.deepcopy(board)
             board_copy = self._play_move(board_copy, possible_moves[move], self.symbol)
@@ -26,7 +36,7 @@ class SmartAgent:
                 print("Winning move:", possible_moves[move])
                 return possible_moves[move]
         
-        # Blocke gegnerischen Gewinnzug
+        # check for move to block opponent
         for move in range(len(possible_moves)):
             board_copy = copy.deepcopy(board)
             board_copy = self._play_move(board_copy, possible_moves[move], self.opponent_symbol)
@@ -34,7 +44,7 @@ class SmartAgent:
                 print("Blocking move:", possible_moves[move])
                 return possible_moves[move]
         
-        # Zufälliger Zug
+        # random move
         random_move = self._random_move(board)
         print("Random move:", random_move)
         return random_move
@@ -75,6 +85,11 @@ class SmartAgent:
         return False
 
     def _random_move(self, board):
+        '''
+        the method [_random_move] uses the method [_get_possible_moves] so get all possible moves
+        and select a random possible move and return it.
+        '''
+        
         possible_cols = self._get_possible_moves(board)
         
         random_number = rd.randint(0, len(possible_cols) - 1)

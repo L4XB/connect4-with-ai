@@ -8,7 +8,10 @@ def simulate_games_random_vs_smart(num_games):
     '''
     the method [simulate_games_random_vs_smart] simulates a connect4 game between the random and 
     the smart agent. 
+    The parameter [num_games] can be used to set the amount of the games the agents play against
+    each other
     '''
+    
     smart_wins = 0
     random_wins = 0
     draws = 0
