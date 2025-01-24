@@ -3,7 +3,7 @@ import copy
 import math
 from constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
 
-class MixMaxAgent:
+class MiniMaxAgent:
     def __init__(self, rows, cols, symbol, max_depth=4):
         self.rows = rows
         self.cols = cols

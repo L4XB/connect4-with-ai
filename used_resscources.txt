@@ -1,2 +1,31 @@
-1. https://realpython.com/python-comments-guide/
-    -> used to get best practices at python comments
+### General Stuff
+
+ ○ https://realpython.com/python-comments-guide/
+        -> used to get best practices at python comments
+
+ ○ 
+
+### Game Board
+
+### Smart Agent
+
+ ○ Lecture Slides + Colab examples
+
+ ○
+
+
+### MiniMax Agent
+
+ ○ Lecture Slides + Colab examples
+
+ ○ https://www.youtube.com/watch?v=l-hh51ncgDI
+    -> To get a better Understanding of the topic
+
+ ○ https://www.youtube.com/watch?v=5y2a0Zhgq0U 
+    -> To get a better Understanding of the topic
+
+ ○ https://www.youtube.com/watch?v=_i-lZcbWkps
+    -> To get a better Understanding of the topic
+
+ ○ https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-1-introduction/
+    -> To get a better Understanding of the topic
