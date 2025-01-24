@@ -95,9 +95,9 @@ class GameBoard:
         '''
         
         # loop over ever element and check if there is an empty one in the board
-        for col in range(self.cols):
-            for row in range(self.rows):
-                if self.board[col][row] == " ":
+        for row in range(self.rows):
+            for col in range(self.cols):
+                if self.board[row][col] == " ":
                     return False
         
         # return True if there is no empty space in the boarx
@@ -110,12 +110,6 @@ class GameBoard:
         returns False
         '''
         
-        player_one_winner = self.check_winner(PLAYER_ONE_SYMBOL)
-        player_two_winner = self.check_winner(PLAYER_TWO_SYMBOL)
-        board_is_full = self.is_board_full()
-        
-        if not player_one_winner  and not player_two_winner and board_is_full:
-            return True
-        
-        return False
-        
+        return not self.check_winner(PLAYER_ONE_SYMBOL) and not self.check_winner(PLAYER_TWO_SYMBOL) and self.is_board_full()
+    
+    
