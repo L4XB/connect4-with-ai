@@ -1,9 +1,14 @@
 ### General Stuff
 
  ○ https://realpython.com/python-comments-guide/
-        -> used to get best practices at python comments
+    -> used to get best practices at python comments
 
- ○ 
+ ○ https://www.appacademy.io/blog/python-coding-best-practices
+    -> python best practices
+
+ ○ https://realpython.com/tutorials/best-practices/
+    -> much stuff from here to understand some python functionallities
+
 
 ### Game Board
 
@@ -11,7 +16,8 @@
 
  ○ Lecture Slides + Colab examples
 
- ○
+ ○ https://realpython.com/tutorials/best-practices/
+    -> got some python functionallities from here
 
 
 ### MiniMax Agent
