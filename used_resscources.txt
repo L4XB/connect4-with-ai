@@ -12,6 +12,8 @@
 
 ### Game Board
 
+ ○ Lecture Slides + Colab examples
+
 ### Smart Agent
 
  ○ Lecture Slides + Colab examples
@@ -35,3 +37,6 @@
 
  ○ https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-1-introduction/
     -> To get a better Understanding of the topic
+
+
+### Inspiration
