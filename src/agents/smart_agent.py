@@ -1,5 +1,6 @@
 from constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
 import random as rd
+import copy
 
 class SmartAgent:
 
@@ -15,8 +16,29 @@ class SmartAgent:
         self.opponent_symbol = PLAYER_TWO_SYMBOL if symbol == PLAYER_ONE_SYMBOL else PLAYER_ONE_SYMBOL
 
     def get_move(self, board):
-        # TODO: Implement
-        return False
+        possible_moves = self._get_possible_moves(board)
+        
+        # Prüfe auf Gewinnzug
+        for move in range(len(possible_moves)):
+            board_copy = copy.deepcopy(board)
+            board_copy = self._play_move(board_copy, possible_moves[move], self.symbol)
+            if self._is_winning_move(board_copy, self.symbol):
+                print("Winning move:", possible_moves[move])
+                return possible_moves[move]
+        
+        # Blocke gegnerischen Gewinnzug
+        for move in range(len(possible_moves)):
+            board_copy = copy.deepcopy(board)
+            board_copy = self._play_move(board_copy, possible_moves[move], self.opponent_symbol)
+            if self._is_winning_move(board_copy, self.opponent_symbol):
+                print("Blocking move:", possible_moves[move])
+                return possible_moves[move]
+        
+        # Zufälliger Zug
+        random_move = self._random_move(board)
+        print("Random move:", random_move)
+        return random_move
+
 
     def _is_winning_move(self, board, tkn):
         """
@@ -53,21 +75,50 @@ class SmartAgent:
         return False
 
     def _random_move(self, board):
-        possible_cols = []
-        
-        for col in range(self.cols):
-            if board[0][col] == " ":
-                possible_cols.append(col)
+        possible_cols = self._get_possible_moves(board)
         
         random_number = rd.randint(0, len(possible_cols) - 1)
         random_move = possible_cols[random_number]
         
         return random_move
     
-    def _is_valid_move(self, board,  col):
-        # TODO: Implement
-        return False
+    def _get_possible_moves(self, board):
+        '''
+        the privat method [_get_possible_moves] interates over the top elements of each colums [cols]
+        and checks if there is a free space. if so it adds this colum to the list [possible_cols].
+        The return value is the list [possible_cols].
+        '''
+    
+        possible_cols = []
+        
+        for col in range(self.cols):
+            # checks the top element of each col and append it to [possible_cols] if its empty.
+            if board[0][col] == " ":
+                possible_cols.append(col)
+        
+        return possible_cols
 
-    def _get_next_open_row(self, board, col):
-        # TODO: Implement
-        return False
+    def _play_move(self, board, col, tkn):
+        '''
+        the method [insert_token] checks
+        if its possible to insert a token [tkn] in a Column [col] 
+        and insert the token in this column if its possbile.
+        The method return the board after the move is played
+        '''
+        
+        # checks if its possbile to set the token [tkn] in the specified column [col]
+        if col < 0 or col >= self.cols:
+            print(f"Invalid column: {col}")
+            return False
+
+        # loops over the board from bottom to top
+        for row in range(self.rows - 1, -1, -1):
+            # checks if the current element is empty
+            if board[row][col] == " ":
+                # sets the token at the empty place in the column
+                board[row][col] = tkn
+                # returns board so that the method execution is stopped
+                return board
+
+        print(f"Column {col} is full.")
+        return board

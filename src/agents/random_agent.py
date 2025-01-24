@@ -18,7 +18,7 @@ class RandomAgent:
         picks a random move and returns this move.
         '''
         
-        possible_moves = self.__get_possible_moves(board)
+        possible_moves = self._get_possible_moves(board)
         # generates a random number in the range 0 <= [random_number] lenght of possible moves -1
         random_number = rd.randint(0, len(possible_moves) - 1)
         random_move = possible_moves[random_number]
@@ -26,7 +26,7 @@ class RandomAgent:
         return random_move
     
     
-    def __get_possible_moves(self, board):
+    def _get_possible_moves(self, board):
         '''
         the privat method [__get_possible_moves] interates over the top elements of each colums [cols]
         and checks if there is a free space. if so it adds this colum to the list [possible_cols].

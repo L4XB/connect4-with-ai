@@ -8,13 +8,21 @@ board = GameBoard(AMOUNT_ROWS, AMOUNT_COLUMNS)
 random_Agent = RandomAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL)
 smart_Agent = SmartAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_TWO_SYMBOL)
 
+print("Smart Agent : " + PLAYER_TWO_SYMBOL)
 
+board.insert_token(0, PLAYER_TWO_SYMBOL)
+board.insert_token(1, PLAYER_TWO_SYMBOL)
+board.insert_token(2, PLAYER_TWO_SYMBOL)
 
-random_agent_move = random_Agent.get_move(board.board)
-board.insert_token(random_agent_move, random_Agent.symbol)
-
-smart_agent_move = smart_Agent.get_move(board.board)
-board.insert_token(smart_agent_move, smart_Agent.symbol)
-
+board.insert_token(4, PLAYER_ONE_SYMBOL)
+board.insert_token(5, PLAYER_ONE_SYMBOL)
 
 board.draw_board()
+
+board.insert_token(smart_Agent.get_move(board.board), smart_Agent.symbol)
+
+board.draw_board()
+print(board.check_winner(smart_Agent.symbol))
+
+
+
