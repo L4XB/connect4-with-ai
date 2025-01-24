@@ -2,11 +2,29 @@ import random as rd
 
 class RandomAgent:
     
-    def __init__(self, rows, cols):
+    def __init__(self, rows, cols, symbol):
         # attributes [rows] & [cols] are used to get the deffined size of the board
         self.cols = cols
         self.rows = rows
         
+        # assign a symbol to the agent
+        self.symbol = symbol
+        
+        
+    
+    def get_move(self, board):
+        '''
+        the method [get_move] reads over the private method [__get_possible_moves] all possible moves,
+        picks a random move and returns this move.
+        '''
+        
+        possible_moves = self.__get_possible_moves(board)
+        # generates a random number in the range 0 <= [random_number] lenght of possible moves -1
+        random_number = rd.randint(0, len(possible_moves) - 1)
+        random_move = possible_moves[random_number]
+        
+        return random_move
+    
     
     def __get_possible_moves(self, board):
         '''
@@ -25,15 +43,3 @@ class RandomAgent:
         return possible_cols
     
     
-    def play_move(self, board):
-        '''
-        the method [play_move] reads over the private method [__get_possible_moves] all possible moves,
-        picks a random move and returns this move.
-        '''
-        
-        possible_moves = self.__get_possible_moves(board)
-        # generates a random number in the range 0 <= [random_number] lenght of possible moves -1
-        random_number = rd.randint(0, len(possible_moves) - 1)
-        random_move = possible_moves[random_number]
-        
-        return random_move

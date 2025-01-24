@@ -15,4 +15,4 @@ board.insert_token(6, PLAYER_TWO_SYMBOL)
 
 board.draw_board()
 
-print(random_Agent.play_move(board.board))
+print(random_Agent.get_move(board.board))
