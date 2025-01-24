@@ -5,38 +5,59 @@ from constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
 
 class MiniMaxAgent:
     def __init__(self, rows, cols, symbol, max_depth=4):
+        # attributes [rows] & [cols] are used to get the deffined size of the board
         self.rows = rows
         self.cols = cols
+        
+        # assign a symbol to the agent
         self.symbol = symbol
+        
+        # assigns the other symbol to the other player
         self.opponent_symbol = PLAYER_TWO_SYMBOL if symbol == PLAYER_ONE_SYMBOL else PLAYER_ONE_SYMBOL
+        
+        # number of moves that calculated bevor desicion
         self.max_depth = max_depth
 
     def get_move(self, board):
-        # Immediate win check
+        '''
+        the method [get_move] uses the Mini-Max-Algorithem to decide what the the move with the most
+        value for the agent is.
+        After checken for the best move, the method returns this move.
+        '''
+        
+        # check if there is a way to immediatly win
         for col in self._get_possible_moves(board):
             if self._is_winning_move(board, col, self.symbol):
                 return col
         
-        # Block opponent win
+        # check if there is a way the block the opponent from winning
         for col in self._get_possible_moves(board):
             if self._is_winning_move(board, col, self.opponent_symbol):
                 return col
         
-        # Start Minimax search
+        # set a variable to keep track of the best possible moves
         best_score = -math.inf
         best_moves = []
         
+        # start with Mini-Max-Algorithem
+        # interrate over all possible moves 
         for col in self._get_possible_moves(board):
+            # create a copy of the current board
             board_copy = copy.deepcopy(board)
+            
+            # plays the first move in the possible moves 
             self._play_move(board_copy, col, self.symbol)
+            
+            # uses the minimax function to get a score/evaluation of the value of the current move
             score = self._minimax(board_copy, self.max_depth - 1, -math.inf, math.inf, False)
             
+            # check if the score is higher that the current highest score. If so set it to the new best score
             if score > best_score:
                 best_score = score
                 best_moves = [col]
             elif score == best_score:
                 best_moves.append(col)
-        
+        # return on of the best moves random, if there are no good moves it return a random move.
         return rd.choice(best_moves) if best_moves else self._random_move(board)
 
     def _minimax(self, board, depth, alpha, beta, maximizing_player):
