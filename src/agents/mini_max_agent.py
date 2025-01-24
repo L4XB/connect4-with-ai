@@ -113,24 +113,31 @@ class MiniMaxAgent:
         return 0
 
     def _get_all_lines(self, board):
+        '''
+        the private method [_get_all_lines] creates an list of all possible horizontal, 
+        vertical and diagonal lines with the range of four elemets in a board [board]
+        and returns this list afterwards.
+        ''' 
+        
         lines = []
         
-        # Horizontal
+        # adding horizontal lines
         for row in range(self.rows):
             for col in range(self.cols - 3):
                 lines.append([board[row][col+i] for i in range(4)])
         
-        # Vertical
+        # adding vertical lines
         for col in range(self.cols):
             for row in range(self.rows - 3):
                 lines.append([board[row+i][col] for i in range(4)])
         
-        # Diagonals
+        # adding diagonals
         for row in range(self.rows - 3):
             for col in range(self.cols - 3):
                 lines.append([board[row+i][col+i] for i in range(4)])
                 lines.append([board[row+3-i][col+i] for i in range(4)])
         
+        # returns the list with all lines
         return lines
 
     def _is_terminal(self, board):
