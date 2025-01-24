@@ -64,9 +64,9 @@ def simulate_games_random_vs_smart(num_games):
         game_lengths.append(moves)
         execution_times.append(time.time() - start_time)
         
-        # Speichernutzung messen
+        # messre memory use
         process = psutil.Process(os.getpid())
-        memory_usages.append(process.memory_info().rss / (1024 * 1024))  # Speichernutzung in MB
+        memory_usages.append(process.memory_info().rss / (1024 * 1024)) 
 
     # print result
     print(f"Ergebnis nach {num_games} Spielen:")
