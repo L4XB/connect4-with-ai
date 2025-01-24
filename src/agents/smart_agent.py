@@ -12,31 +12,13 @@ class SmartAgent:
         self.symbol = symbol
         
         # assigns the other symbol to the other player
-        if symbol == PLAYER_ONE_SYMBOL:
-            self.opponent_symbol = PLAYER_TWO_SYMBOL
-        else:
-            self.opponent_symbol = PLAYER_ONE_SYMBOL
+        self.opponent_symbol = PLAYER_TWO_SYMBOL if symbol == PLAYER_ONE_SYMBOL else PLAYER_ONE_SYMBOL
 
     def get_move(self, board):
-        
-        move = self._check_winning_move(board, self.symbol)
-        if move is not None:
-            return move
-        move = self._check_winning_move(board, self.opponent_symbol)
-        if move is not None:
-            return move
-        return self._random_move(board)
+        return False
 
     def _check_winning_move(self, board, token):
-        for col in range(self.cols):
-            if self._is_valid_move(board, col):
-                row = self._get_next_open_row(board, col)
-                board.insert_token(col, token)
-                if board.check_winner(token):
-                    board.board[row][col] = " "
-                    return col
-                board.board[row][col] = " "
-        return None
+        return False
 
     def _random_move(self, board):
         possible_cols = []
@@ -51,10 +33,7 @@ class SmartAgent:
         return random_move
     
     def _is_valid_move(self, board,  col):
-        return board.board[0][col] == " "
+        return False
 
     def _get_next_open_row(self, board, col):
-        for row in range(self.rows - 1, -1, -1):
-            if board.board[row][col] == " ":
-                return row
-        return None
+        return False
