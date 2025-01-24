@@ -134,22 +134,31 @@ class MiniMaxAgent:
         return lines
 
     def _is_terminal(self, board):
+        '''
+        the private method [_is_terminal] can be used to check if a game on a board [board] has
+        endet by winning of one player or a draw
+        '''
         return (self._check_winner(board, self.symbol) or 
                 self._check_winner(board, self.opponent_symbol) or 
                 len(self._get_possible_moves(board)) == 0)
 
     def _check_winner(self, board, symbol):
-        # Horizontal
+        '''
+        the private method [_check_winner] checks if a player with the symbol [symbol]
+        won on a board [board] and returns True if so. Otherwise it returns False
+        '''
+        
+        # check horizontal lines
         for row in range(self.rows):
             for col in range(self.cols - 3):
                 if all(board[row][col+i] == symbol for i in range(4)):
                     return True
-        # Vertical
+        # check vertical lines
         for col in range(self.cols):
             for row in range(self.rows - 3):
                 if all(board[row+i][col] == symbol for i in range(4)):
                     return True
-        # Diagonals
+        # check diagonals
         for row in range(self.rows - 3):
             for col in range(self.cols - 3):
                 if all(board[row+i][col+i] == symbol for i in range(4)):
@@ -161,21 +170,46 @@ class MiniMaxAgent:
         return False
 
     def _is_winning_move(self, board, col, symbol):
+        '''
+        the private method [_is_winning_move] checks if a move in a column [col] with the
+        symbol [symbol] on a board [board] will lead to a win for the player with the
+        given symbol
+        '''
+        
         temp_board = copy.deepcopy(board)
         if self._play_move(temp_board, col, symbol):
             return self._check_winner(temp_board, symbol)
         return False
 
     def _random_move(self, board):
+        '''
+        the private method [_random_move] returns a random possible move on 
+        a given board [board]
+        '''
+        
         possible_cols = self._get_possible_moves(board)
+        # retuns a random possible move if availible 
         return rd.choice(possible_cols) if possible_cols else None
 
     def _get_possible_moves(self, board):
+        '''
+        the private method [_get_possible_moves] returns all possible columns of a 
+        board [board] in witch a symbol can be entered
+        '''
+        
         return [col for col in range(self.cols) if board[0][col] == " "]
 
     def _play_move(self, board, col, symbol):
+        '''
+        the private methode [_play_move] sets a token [symbol] to a column [col] in a game board [board].
+        '''
+        
+        # loops over the board from bottom to top
         for row in range(self.rows-1, -1, -1):
+              # checks if the current element is empty
             if board[row][col] == " ":
+                # sets the token at the empty place in the column
                 board[row][col] = symbol
-                return True
+                # returns board so that the method execution is stopped
+                return board
         return False
