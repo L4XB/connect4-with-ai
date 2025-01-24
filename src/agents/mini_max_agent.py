@@ -90,9 +90,14 @@ class MiniMaxAgent:
             return min_eval
 
     def _heuristic_evaluation(self, board):
+        '''
+        the private method [_heuristic_evaluation] calculates a score of the evaluation of all lines
+        and returns this score.
+        '''
+        
         score = 0
         
-        # Evaluate all possible lines
+        # evaluate all possible lines
         for line in self._get_all_lines(board):
             score += self._evaluate_line(line)
         
