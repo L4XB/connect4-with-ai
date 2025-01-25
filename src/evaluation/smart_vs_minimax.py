@@ -74,7 +74,7 @@ def simulate_games_minimax_vs_smart(num_games):
     print(f"Smart Agent ({PLAYER_TWO_SYMBOL}) Siege: {smart_wins}")
     print(f"Unentschieden: {draws}")
 
-    ##### Performance Evaluation and Analysis
+    ##### performance evaluation and analysis
     # accuracy Metrics
     minimax_win_rate = minimax_wins / num_games
     smart_win_rate = smart_wins / num_games
@@ -107,20 +107,20 @@ def simulate_games_minimax_vs_smart(num_games):
     # plotting the results
     plt.figure(figsize=(18, 12))
 
-    # Plot 1: Win Rates
+    # plot 1: win rates
     plt.subplot(2, 3, 1)
     plt.bar(['Minimax Agent', 'Smart Agent', 'Draws'], [minimax_wins, smart_wins, draws], color=['blue', 'orange', 'green'])
     plt.title('Win Rates')
     plt.ylabel('Number of Games')
 
-    # Plot 2: Game Length Distribution
+    # plot 2: game length distribution
     plt.subplot(2, 3, 2)
     plt.hist(game_lengths, bins=range(min(game_lengths), max(game_lengths) + 1), alpha=0.75, color='purple')
     plt.title('Game Length Distribution')
     plt.xlabel('Number of Moves')
     plt.ylabel('Frequency')
 
-    # Plot 3: Winning Patterns
+    # plot 3: winning patterns
     plt.subplot(2, 3, 3)
     patterns = ['horizontal', 'vertical', 'diagonal']
     minimax_pattern_counts = [minimax_winning_patterns[p] for p in patterns]
@@ -138,7 +138,7 @@ def simulate_games_minimax_vs_smart(num_games):
     plt.xticks([i + bar_width / 2 for i in index], patterns)
     plt.legend()
 
-    # Plot 4: Memory Usage Over Games
+    # plot 4: memory usage over games
     plt.subplot(2, 3, 4)
     plt.plot(range(1, num_games + 1), memory_usages, marker='o', color='red')
     plt.title('Memory Usage Over Games')
@@ -146,7 +146,7 @@ def simulate_games_minimax_vs_smart(num_games):
     plt.ylabel('Memory Usage (MB)')
     plt.grid(True)
 
-    # Plot 5: Execution Time Over Games
+    # plot 5: execution time over games
     plt.subplot(2, 3, 5)
     plt.plot(range(1, num_games + 1), execution_times, marker='o', color='green')
     plt.title('Execution Time Over Games')
