@@ -50,8 +50,12 @@
  ○ https://github.com/erikackermann/Connect-Four/blob/master/minimax.py
     -> Check how others implemet the mixmax their code (copyed nothing from this)
 
+### Evaluation
 
-### Graphics
+ ○ https://pypi.org/project/psutil/
+    -> To read Memory usage
+
+### Evaluation Graphics
 
  ○ https://matplotlib.org/stable/tutorials/index.html
     -> Got the most informations how to use matplotlib from here
