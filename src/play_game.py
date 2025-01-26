@@ -12,7 +12,7 @@ def play_game_vs_agent():
     
     # create gameboard and agent
     board = GameBoard(AMOUNT_ROWS, AMOUNT_COLUMNS)
-    agent = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_ROWS, PLAYER_ONE_SYMBOL)
+    agent = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL)
     
     # game interrations 
     while True:
