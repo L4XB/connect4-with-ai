@@ -2,7 +2,7 @@ import torch.nn as nn
 
 class Connect4Model(nn.Module):
     def __init__(self):
-        super().__init__()
+        super().__init__()      
         self.fc1 = nn.Linear(42, 128)
         self.fc2 = nn.Linear(128, 64)
         self.fc3 = nn.Linear(64, 3)
