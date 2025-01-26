@@ -23,6 +23,9 @@ def play_game_vs_agent():
         #insert the agent move into the board
         board.insert_token(agent_move, agent.symbol)
         
+        # print aent move
+        print(f"Agent places a Token in Column: {agent_move}")
+        
         # draw the board with the inserted move
         board.draw_board()
         
@@ -46,7 +49,9 @@ def play_game_vs_agent():
             if(not board.insert_token(player_move, agent.opponent_symbol)):
                 print("Invalid Move")
             else:
+                print(f"Player places a Token in Column: {player_move}")
                 break
+        
         
         # draw board again after the player move is inserted
         board.draw_board()

@@ -17,6 +17,7 @@
  ○ https://www.youtube.com/watch?v=NkmYfTl2L_Y
     -> I got my gameboard design from there, but I didn't copy anything and implemented and optimised everything myself
 
+
 ### Smart Agent
 
  ○ Lecture Slides + Colab examples
@@ -48,12 +49,14 @@
     -> Check how others display the board and organize theri code (copyed nothing from this)
 
  ○ https://github.com/erikackermann/Connect-Four/blob/master/minimax.py
-    -> Check how others implemet the mixmax their code (copyed nothing from this)
+    -> Check how others implemet the mixmax (copyed nothing from this)
+
 
 ### Evaluation
 
  ○ https://pypi.org/project/psutil/
     -> To read Memory usage
+
 
 ### Evaluation Graphics
 

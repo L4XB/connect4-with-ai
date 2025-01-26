@@ -250,8 +250,11 @@ class MiniMaxAgent:
         the private method [_get_possible_moves] returns all possible columns of a 
         board [board] in witch a symbol can be entered
         '''
-        
-        return [col for col in range(self.cols) if board[0][col] == " "]
+        possible_moves = []
+        for col in range(self.cols):
+            if board[0][col] == ' ':
+                possible_moves.append(col)
+        return possible_moves
 
     def _play_move(self, board, col, symbol):
         '''
