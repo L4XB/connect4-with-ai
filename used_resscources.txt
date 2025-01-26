@@ -15,7 +15,8 @@
  ○ Lecture Slides + Colab examples
 
  ○ https://www.youtube.com/watch?v=NkmYfTl2L_Y
-    -> I got my gameboard design from there, but I didn't copy anything and implemented and optimised everything myself
+    -> I got my gameboard design from there, but I didn't copy anything and 
+       implemented and optimised everything myself
 
 
 ### Smart Agent
