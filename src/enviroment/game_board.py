@@ -146,3 +146,8 @@ class GameBoard:
         # no winning pattern found (should not happen if check_winner returned True)
         return None
     
+    def reset(self):
+        """
+        Resets the game board to its initial state (all cells empty).
+        """
+        self.board = [[" " for _ in range(self.cols)] for _ in range(self.rows)]
