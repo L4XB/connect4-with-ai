@@ -12,12 +12,13 @@ def evaluate(num_games=100):
     minimax = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_TWO_SYMBOL, max_depth=4)
     
     results = {'RL_Wins': 0, 'MiniMax_Wins': 0, 'Draws': 0}
+    move_counts = []
     
     # Evaluationsloop
     for _ in tqdm(range(num_games), desc="Evaluation"):
         env = GameBoard(AMOUNT_ROWS, AMOUNT_COLUMNS)
         done = False
-        turn = 0  # Abwechselnder Startspieler
+        turn = np.random.choice([0, 1])  # Zufälliger Startspieler
         
         while not done:
             if turn % 2 == 0:
@@ -41,12 +42,14 @@ def evaluate(num_games=100):
                 done = True
             
             turn += 1
+        
+        move_counts.append(turn)
     
     # Ergebnisse anzeigen
     print("\nEvaluationsergebnisse:")
     print(f"RL Siege: {results['RL_Wins']} ({results['RL_Wins']/num_games*100:.1f}%)")
     print(f"MiniMax Siege: {results['MiniMax_Wins']} ({results['MiniMax_Wins']/num_games*100:.1f}%)")
     print(f"Unentschieden: {results['Draws']} ({results['Draws']/num_games*100:.1f}%)")
-
+    print(f"Durchschnittliche Zuganzahl pro Spiel: {np.mean(move_counts):.1f}")
 
 evaluate()

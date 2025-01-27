@@ -14,6 +14,10 @@ def train():
     
     # Training Loop
     episodes = 500
+    wins = 0
+    losses = 0
+    draws = 0
+    
     for episode in tqdm(range(episodes), desc="Training"):
         state = env.reset()
         done = False
@@ -30,9 +34,11 @@ def train():
             if env.check_winner(PLAYER_ONE_SYMBOL):
                 reward = 1
                 done = True
+                wins += 1
             elif env.is_draw():
                 reward = 0.3
                 done = True
+                draws += 1
             else:
                 # MiniMax Agent Zug
                 mm_action = minimax.get_move(env.board)
@@ -41,9 +47,11 @@ def train():
                 if env.check_winner(PLAYER_TWO_SYMBOL):
                     reward = -1
                     done = True
+                    losses += 1
                 elif env.is_draw():
                     reward = 0.1
                     done = True
+                    draws += 1
             
             # Experience speichern
             next_state = np.copy(env.board)
@@ -56,6 +64,11 @@ def train():
         # Target Network Update
         if episode % 50 == 0:
             rl_agent.update_target_net()
+        
+        # Fortschrittsanzeige
+        if episode % 100 == 0:
+            print(f"Episode {episode}: Wins={wins}, Losses={losses}, Draws={draws}")
+            wins, losses, draws = 0, 0, 0
     
     # Modell speichern
     rl_agent.save_model()

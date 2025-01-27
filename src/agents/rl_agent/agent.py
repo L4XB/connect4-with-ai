@@ -6,6 +6,7 @@ from .model import Connect4DQN
 from .memory import ReplayMemory
 import os
 import logging
+from collections import deque
 
 # Logger einrichten
 logger = logging.getLogger(__name__)
@@ -38,7 +39,7 @@ class RLAgent:
         self.target_net.eval()
 
         # Optimizer und Memory
-        self.optimizer = optim.AdamW(self.policy_net.parameters(), lr=lr)
+        self.optimizer = optim.AdamW(self.policy_net.parameters(), lr=lr, weight_decay=1e-5)
         self.memory = ReplayMemory(memory_size)
 
         # Hyperparameter
@@ -48,12 +49,13 @@ class RLAgent:
         self.gamma = gamma
         self.batch_size = batch_size
         self.tau = tau
+        self.steps_done = 0
 
     def get_action(self, board, valid_moves, training=True):
         if training and np.random.random() < self.epsilon:
             return np.random.choice(valid_moves)
 
-        with torch.set_grad_enabled(training):
+        with torch.no_grad():
             state = self._board_to_tensor(board)
             q_values = self.policy_net(state)
 
