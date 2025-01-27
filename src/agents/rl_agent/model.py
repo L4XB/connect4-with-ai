@@ -7,21 +7,18 @@ class Connect4DQN(nn.Module):
         self.net = nn.Sequential(
             nn.Linear(input_dim, hidden_dim),
             nn.ReLU(),
-            nn.LayerNorm(hidden_dim),  # Ersetze BatchNorm durch LayerNorm
+            nn.LayerNorm(hidden_dim),
             nn.Dropout(0.2),
             nn.Linear(hidden_dim, hidden_dim),
             nn.ReLU(),
-            nn.LayerNorm(hidden_dim),  # Ersetze BatchNorm durch LayerNorm
+            nn.LayerNorm(hidden_dim),
             nn.Dropout(0.2),
             nn.Linear(hidden_dim, hidden_dim),
             nn.ReLU(),
-            nn.LayerNorm(hidden_dim),  # Ersetze BatchNorm durch LayerNorm
+            nn.LayerNorm(hidden_dim),
             nn.Dropout(0.2),
             nn.Linear(hidden_dim, output_dim)
         )
-    
-    def forward(self, x):
-        return self.net(x)
     
     def forward(self, x):
         return self.net(x)
