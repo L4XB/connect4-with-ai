@@ -18,7 +18,7 @@ def evaluate(num_games=100):
     for _ in tqdm(range(num_games), desc="Evaluation"):
         env = GameBoard(AMOUNT_ROWS, AMOUNT_COLUMNS)
         done = False
-        turn = np.random.choice([0, 1])  # Zufälliger Startspieler
+        turn = np.random.choice([0, 1])
         
         while not done:
             if turn % 2 == 0:
