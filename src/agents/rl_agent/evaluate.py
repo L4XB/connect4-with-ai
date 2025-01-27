@@ -155,4 +155,4 @@ def evaluate(num_games=100):
     plt.show()
 
 # Beispielaufruf
-evaluate(num_games=100)
+evaluate(num_games=500)
