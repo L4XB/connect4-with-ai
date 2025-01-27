@@ -27,7 +27,8 @@ class RLAgent:
         lr=0.001,
         memory_size=10000,
         tau=0.005
-    ):
+    ):  
+        
         self.symbol = symbol
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         logger.info(f"Using device: {self.device}")
@@ -43,6 +44,7 @@ class RLAgent:
         self.memory = ReplayMemory(memory_size)
 
         # Hyperparameter
+        self.initial_epsilon = epsilon_start
         self.epsilon = epsilon_start
         self.epsilon_min = epsilon_end
         self.epsilon_decay = epsilon_decay
