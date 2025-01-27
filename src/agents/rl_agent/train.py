@@ -69,7 +69,8 @@ def train():
         if episode % 100 == 0:
             print(f"Episode {episode}: Wins={wins}, Losses={losses}, Draws={draws}")
             wins, losses, draws = 0, 0, 0
-    
+            
+    print(f"Episode {episode}: Wins={wins}, Losses={losses}, Draws={draws}")
     # Modell speichern
     rl_agent.save_model()
     print("Training abgeschlossen. Modell gespeichert.")

@@ -178,10 +178,10 @@ class RLAgent:
         self.optimizer.step()
 
     def _board_to_tensor(self, board):
-        """Konvertiert das Spielbrett in einen Tensor"""
         state = np.where(np.array(board) == self.symbol, 1, 
                         np.where(np.array(board) == ' ', 0, -1))
-        return torch.FloatTensor(state.flatten()).unsqueeze(0).to(self.device)
+        state_tensor = torch.FloatTensor(state.flatten()).unsqueeze(0)
+        return state_tensor.to(self.device)
 
     def _board_to_array(self, board):
         """Konvertiert das Spielbrett in ein numpy-Array"""
