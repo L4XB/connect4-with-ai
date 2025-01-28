@@ -82,12 +82,20 @@ class TestGameBoardMethods(unittest.TestCase):
             ["●", " ", " ", " ", " ", " ", " "]
         ]
         
+        # checks if the token is insered at the right row and the right place
         self.assertEqual(self.game_board.board, default_board_layout_with_one_token)
+        
+        # reset the gameboard
         self.game_board.reset()
         
     
     def testInsertTokenMethodWhenInsertionIsNotPossible(self):
+        '''
+        the test method [testInsertTokenMethodWhenInsertionIsNotPossible] checks if the insertion of a token
+        into the gameboard throws an error if the column is full.
+        '''
         
+        # simulate full column
         default_board_layout_with_a_full_line_of_tokens = [
             ["●", " ", " ", " ", " ", " ", " "],
             ["●", " ", " ", " ", " ", " ", " "],
@@ -97,15 +105,71 @@ class TestGameBoardMethods(unittest.TestCase):
             ["●", " ", " ", " ", " ", " ", " "]
         ]
         
+        # set gameboard to simulated board
         self.game_board.board = default_board_layout_with_a_full_line_of_tokens
         
+        # test if the method returns False because the column is full
         self.assertFalse(self.game_board.insert_token(0, PLAYER_ONE_SYMBOL))
-            
+        
+        # reset the board
         self.game_board.reset()
 
 
     def testCheckWinnerMethod(self):
-        return
+        '''
+        the test method [testCheckWinnerMethod] checks if the board recognizes if a player with an
+        specific token won.
+        '''
+        
+        ## case one: check if vertical wins get recognized
+        self.game_board.board = [
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            ["●", " ", " ", " ", " ", " ", " "],
+            ["●", " ", " ", " ", " ", " ", " "],
+            ["●", " ", " ", " ", " ", " ", " "],
+            ["●", " ", " ", " ", " ", " ", " "]
+        ]
+        
+        # checks if a vertical win gets recognizes
+        self.assertTrue(self.game_board.check_winner(PLAYER_ONE_SYMBOL))
+        
+        # reset board
+        self.game_board.reset()
+        
+        
+        ## case two: check if vertical wins get recognized
+        self.game_board.board = [
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", "●", "●", "●", "●", " "]
+        ]
+        
+        # checks if a vertical win gets recognizes
+        self.assertTrue(self.game_board.check_winner(PLAYER_ONE_SYMBOL))
+        
+        # reset board
+        self.game_board.reset()
+        
+        
+        ## case three: check if diagonal wins get recognized
+        self.game_board.board = [
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", "●", " "],
+            [" ", " ", " ", " ", "●", " ", " "],
+            [" ", " ", " ", "●", " ", " ", " "],
+            [" ", " ", "●", " ", " ", " ", " "]
+        ]
+        
+        # checks if a vertical win gets recognizes
+        self.assertTrue(self.game_board.check_winner(PLAYER_ONE_SYMBOL))
+        
+        # reset board
+        self.game_board.reset()
 
 
 unittest.main()
