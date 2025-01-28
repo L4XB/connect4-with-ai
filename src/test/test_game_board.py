@@ -180,9 +180,9 @@ class TestGameBoardMethods(unittest.TestCase):
         
         # simulate a full board
         self.game_board.board = [
-            ["○", "○", "●", "○", "●", "○", "○"],
+            ["○", "●", "●", "○", "●", "○", "○"],
             ["●", "●", "○", "●", "○", "●", "●"],
-            ["○", "●", "●", "○", "●", "●", "○"],
+            ["○", "●", "●", "○", "○", "●", "○"],
             ["●", "○", "○", "●", "○", "●", "○"],
             ["○", "○", "●", "●", "●", "○", "○"],
             ["●", "○", "●", "●", "○", "●", "●"]
@@ -207,5 +207,25 @@ class TestGameBoardMethods(unittest.TestCase):
         
         # reset board
         self.game_board.reset()
+    
+    
+    def testIsDrawMethdod(self):
         
+        # simulate a full board with no winner
+        self.game_board.board = [
+            ["○", "●", "●", "○", "●", "○", "○"],
+            ["●", "●", "○", "●", "○", "●", "●"],
+            ["○", "●", "●", "○", "○", "●", "○"],
+            ["●", "○", "○", "●", "○", "●", "○"],
+            ["○", "○", "●", "●", "●", "○", "○"],
+            ["●", "○", "●", "●", "○", "●", "●"]
+        ]
+        
+        # checks if the is_draw method works correctly and returns True
+        self.game_board.is_draw()
+        
+        # reset board
+        self.game_board.reset()
+        
+    
 unittest.main()
