@@ -1,7 +1,7 @@
-from constants import AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
+from src.constants import AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
 
-from enviroment.game_board import GameBoard
-from agents.mini_max_agent import MiniMaxAgent
+from src.enviroment.game_board import GameBoard
+from src.agents.mini_max_agent import MiniMaxAgent
 
 def play_game_vs_agent():
     '''
