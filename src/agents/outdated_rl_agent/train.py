@@ -40,7 +40,7 @@ def evaluate_agent(current_agent, opponent, num_eval_episodes=50):
             elif env.is_draw():
                 done = True
 
-    current_agent.epsilon = original_epsilon  # <-- Zurück zum ursprünglichen Wert
+    current_agent.epsilon = original_epsilon
     win_rate = wins / num_eval_episodes
     return win_rate
 
