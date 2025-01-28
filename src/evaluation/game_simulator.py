@@ -8,15 +8,32 @@ import math
 
 class GameSimulator:
     def __init__(self, agent1, agent1_symbol, agent2, agent2_symbol):
-        self.agent1 = agent1
-        self.agent1_symbol = agent1_symbol
+        # creates the attributes [agent1] & [agent2] that safes a Object from a Agent class
+        self.agent1 = agent1 
         self.agent2 = agent2
+        
+        # creates attributes [agent1_symbol] & [agent2_symbol] that assigns a symbol to a agent
+        self.agent1_symbol = agent1_symbol
         self.agent2_symbol = agent2_symbol
         
+        # create measurements for the tests
         self.reset_stats()
     
     
     def reset_stats(self):
+        '''
+        the method [reset_stats] can be used to either create measurements to messure overwach
+        the game simulation or to reset the created measurements.
+        The following measurements will be created:
+         ○ agent1 wins
+         ○ agent2 wins
+         ○ draws
+         ○ game lenght
+         ○ winning patterns
+         ○ execution time
+         ○ memory usage
+        '''
+        
         self.agent1_wins = 0
         self.agent2_wins = 0
         self.draws = 0
@@ -43,11 +60,9 @@ class GameSimulator:
             
             while True:
                 moves += 1
-                # Make move
                 move = agents[current_player].get_move(board.board)
                 board.insert_token(move, current_player)
                 
-                # Check for winner
                 if board.check_winner(current_player):
                     if current_player == self.agent1_symbol:
                         self.agent1_wins += 1
@@ -59,19 +74,15 @@ class GameSimulator:
                         self.agent2_patterns[pattern] += 1
                     break
                 
-                # Check for draw
                 if board.is_draw():
                     self.draws += 1
                     break
                 
-                # Switch player
                 current_player = self.agent2_symbol if current_player == self.agent1_symbol else self.agent1_symbol
 
-            # Record game metrics
             self.game_lengths.append(moves)
             self.execution_times.append(time.time() - start_time)
             
-            # Measure memory usage
             process = psutil.Process(os.getpid())
             self.memory_usages.append(process.memory_info().rss / (1024 * 1024))
 
@@ -84,19 +95,16 @@ class GameSimulator:
         print(f"{self.agent2.__class__.__name__} ({self.agent2_symbol}) wins: {self.agent2_wins}")
         print(f"Draws: {self.draws}")
 
-        # Accuracy metrics
         print("\nAccuracy Metrics:")
         print(f"{self.agent1.__class__.__name__} Win Rate: {self.agent1_wins/num_games:.2f}")
         print(f"{self.agent2.__class__.__name__} Win Rate: {self.agent2_wins/num_games:.2f}")
         print(f"Draw Rate: {self.draws/num_games:.2f}")
 
-        # Efficiency metrics
         print("\nEfficiency Metrics:")
         print(f"Avg. Execution Time: {sum(self.execution_times)/num_games:.2f}s")
         print(f"Avg. Memory Usage: {sum(self.memory_usages)/num_games:.2f}MB")
         print(f"Max Memory Usage: {max(self.memory_usages):.2f}MB")
 
-        # Game metrics
         print("\nGame Metrics:")
         print(f"Avg. Game Length: {sum(self.game_lengths)/num_games:.2f} moves")
         print(f"{self.agent1.__class__.__name__} Patterns: {self.agent1_patterns}")
@@ -106,7 +114,6 @@ class GameSimulator:
     def _plot_results(self, num_games):
         plt.figure(figsize=(18, 12))
         
-        # Win rates
         plt.subplot(2, 3, 1)
         labels = [
             f"{self.agent1.__class__.__name__}",
@@ -117,14 +124,12 @@ class GameSimulator:
         plt.title('Win Rates')
         plt.ylabel('Number of Games')
 
-        # Game length distribution
         plt.subplot(2, 3, 2)
         plt.hist(self.game_lengths, bins=range(min(self.game_lengths), max(self.game_lengths)+1), alpha=0.75, color='purple')
         plt.title('Game Length Distribution')
         plt.xlabel('Moves')
         plt.ylabel('Frequency')
 
-        # Winning patterns
         plt.subplot(2, 3, 3)
         patterns = ['horizontal', 'vertical', 'diagonal']
         a1_counts = [self.agent1_patterns[p] for p in patterns]
@@ -141,7 +146,6 @@ class GameSimulator:
         plt.ylabel('Frequency')
         plt.legend()
 
-        # Memory usage
         plt.subplot(2, 3, 4)
         plt.plot(range(1, num_games+1), self.memory_usages, marker='o', color='red')
         plt.title('Memory Usage')
@@ -149,7 +153,6 @@ class GameSimulator:
         plt.ylabel('MB')
         plt.grid(True)
 
-        # Execution time
         plt.subplot(2, 3, 5)
         plt.plot(range(1, num_games+1), self.execution_times, marker='o', color='green')
         plt.title('Execution Time')
