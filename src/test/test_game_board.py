@@ -210,6 +210,10 @@ class TestGameBoardMethods(unittest.TestCase):
     
     
     def testIsDrawMethdod(self):
+        '''
+        the test method [testIsDrawMethdod] checks if the board recognizes it correctly 
+        when the board is full and its a draw
+        '''
         
         # simulate a full board with no winner
         self.game_board.board = [
@@ -226,6 +230,65 @@ class TestGameBoardMethods(unittest.TestCase):
         
         # reset board
         self.game_board.reset()
+    
+    
+    def testWinningPatterns(self):
+        '''
+        the test method [testWinningPatterns] checks in witch way the player won the game.
+        Options are diagonal, vertical & horizontal
+        '''
         
+        ## case one : horizontal
+        self.game_board.board = [
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", "●", "●", "●", "●", " "]
+        ]
+        
+        # checks if the method returns the right winning pattern
+        self.assertEqual(self.game_board.get_winning_pattern(PLAYER_ONE_SYMBOL), "horizontal")
+        
+        # reset board
+        self.game_board.reset()
+        
+        
+        ## case two : vertical
+        self.game_board.board = [
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", "●", " ", " ", " ", " "],
+            [" ", " ", "●", " ", " ", " ", " "],
+            [" ", " ", "●", " ", " ", " ", " "],
+            [" ", " ", "●", " ", " ", " ", " "]
+        ]
+        
+        # checks if the method returns the right winning pattern
+        self.assertEqual(self.game_board.get_winning_pattern(PLAYER_ONE_SYMBOL), "vertical")
+        
+        # reset board
+        self.game_board.reset()
+        
+        
+        ## case three : diagonal
+        self.game_board.board = [
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", "●", " "],
+            [" ", " ", " ", " ", "●", " ", " "],
+            [" ", " ", " ", "●", " ", " ", " "],
+            [" ", " ", "●", " ", " ", " ", " "]
+        ]
+        
+        # checks if the method returns the right winning pattern
+        self.assertEqual(self.game_board.get_winning_pattern(PLAYER_ONE_SYMBOL), "diagonal")
+        
+        # reset board
+        self.game_board.reset()
+        
+    
+    
     
 unittest.main()
