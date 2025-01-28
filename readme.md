@@ -4,3 +4,5 @@
  ● add more used ressources to the project
  ● create ml agent
  ● create extra agent
+ ● unit tests
+ ● ressources
