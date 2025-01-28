@@ -172,4 +172,40 @@ class TestGameBoardMethods(unittest.TestCase):
         self.game_board.reset()
 
 
+    def testCheckIfBoardIsFullMethod(self):
+        '''
+        the test method [testCheckIfBoardIsFullMethod] checks if the board class recognizes it
+        when the board is full
+        '''
+        
+        # simulate a full board
+        self.game_board.board = [
+            ["○", "○", "●", "○", "●", "○", "○"],
+            ["●", "●", "○", "●", "○", "●", "●"],
+            ["○", "●", "●", "○", "●", "●", "○"],
+            ["●", "○", "○", "●", "○", "●", "○"],
+            ["○", "○", "●", "●", "●", "○", "○"],
+            ["●", "○", "●", "●", "○", "●", "●"]
+        ]
+        
+        # checks if the method [is_board_full] works right and returns True
+        self.assertTrue(self.game_board.is_board_full())
+        
+        
+        # simulate board with empty space
+        self.game_board.board = [
+            ["○", "○", "●", " ", "●", "○", "○"],
+            ["●", "●", "○", "●", "○", "●", "●"],
+            ["○", "●", "●", "○", "●", "●", "○"],
+            ["●", "○", "○", "○", "○", "●", "○"],
+            ["○", "○", "●", "●", "●", "○", "○"],
+            ["●", "○", "●", "●", "○", "●", "●"]
+        ]
+        
+        # checks if the method returns false because of the free space
+        self.assertFalse(self.game_board.is_board_full())
+        
+        # reset board
+        self.game_board.reset()
+        
 unittest.main()
