@@ -45,48 +45,80 @@ class GameSimulator:
     
     
     def simulate(self, num_games):
+        '''
+        the method [simulate] can be used to simulate games between two agents and overwatch some 
+        messurements.
+        The paramester [num_games] can be used to specify how many games the method should simulate.
+        '''
+        
+        # reset all messurements
         self.reset_stats()
         
         for game in range(num_games):
+            
+            # start timer for a game to keep track
             start_time = time.time()
+            
+            # create a new gameboard
             board = GameBoard(AMOUNT_ROWS, AMOUNT_COLUMNS)
+            
+            # assign aymbols to agents
             agents = {
                 self.agent1_symbol: self.agent1,
                 self.agent2_symbol: self.agent2
             }
             
+            # specify who is the current player
             current_player = self.agent1_symbol
+            
+            # keep track of the moves
             moves = 0
             
+            # play game
             while True:
                 moves += 1
+                
+                # get new move from current agent
                 move = agents[current_player].get_move(board.board)
+                
+                # intert move into the board
                 board.insert_token(move, current_player)
                 
+                # check if the current player won after the played move
                 if board.check_winner(current_player):
                     if current_player == self.agent1_symbol:
+                        
+                        # keep track of messurements
                         self.agent1_wins += 1
                         pattern = board.get_winning_pattern(current_player)
                         self.agent1_patterns[pattern] += 1
                     else:
+                        
+                        # keep track of messurements
                         self.agent2_wins += 1
                         pattern = board.get_winning_pattern(current_player)
                         self.agent2_patterns[pattern] += 1
                     break
                 
+                # check if board is a draw
                 if board.is_draw():
                     self.draws += 1
                     break
                 
+                # change current player to other agent
                 current_player = self.agent2_symbol if current_player == self.agent1_symbol else self.agent1_symbol
 
+            # keep track of messurements
             self.game_lengths.append(moves)
             self.execution_times.append(time.time() - start_time)
             
             process = psutil.Process(os.getpid())
             self.memory_usages.append(process.memory_info().rss / (1024 * 1024))
 
+        # print result of game simmulation
         self._print_results(num_games)
+        
+        # plot result of game simmulation
         self._plot_results(num_games)
     
     def _print_results(self, num_games):
