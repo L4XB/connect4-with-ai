@@ -289,6 +289,4 @@ class TestGameBoardMethods(unittest.TestCase):
         self.game_board.reset()
         
     
-    
-    
 unittest.main()
