@@ -14,7 +14,7 @@ from agents.random_agent import RandomAgent
 
 # -> smart agent vs. minimax agent
 # smart = SmartAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL)
-# minimax_agent = RandomAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_TWO_SYMBOL)
+# minimax_agent = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_TWO_SYMBOL)
 # simulator = GameSimulator(smart, PLAYER_ONE_SYMBOL, minimax_agent, PLAYER_TWO_SYMBOL)
 # simulator.simulate(500)
 
