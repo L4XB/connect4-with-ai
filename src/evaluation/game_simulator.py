@@ -122,21 +122,31 @@ class GameSimulator:
         self._plot_results(num_games)
     
     def _print_results(self, num_games):
+        '''
+        the privat method [_print_results] can be used to print the result of the messuremnts of one
+        game simmulation.
+        The parameter [num_games] is the amount of games the simulator simulated
+        '''
+        
+        # amount of wins and draws
         print(f"\nResults after {num_games} games:")
         print(f"{self.agent1.__class__.__name__} ({self.agent1_symbol}) wins: {self.agent1_wins}")
         print(f"{self.agent2.__class__.__name__} ({self.agent2_symbol}) wins: {self.agent2_wins}")
         print(f"Draws: {self.draws}")
 
+        # winrate and drawrate of the agents
         print("\nAccuracy Metrics:")
         print(f"{self.agent1.__class__.__name__} Win Rate: {self.agent1_wins/num_games:.2f}")
         print(f"{self.agent2.__class__.__name__} Win Rate: {self.agent2_wins/num_games:.2f}")
         print(f"Draw Rate: {self.draws/num_games:.2f}")
 
+        # execution time and memor usage
         print("\nEfficiency Metrics:")
         print(f"Avg. Execution Time: {sum(self.execution_times)/num_games:.2f}s")
         print(f"Avg. Memory Usage: {sum(self.memory_usages)/num_games:.2f}MB")
         print(f"Max Memory Usage: {max(self.memory_usages):.2f}MB")
 
+        # winning patterns
         print("\nGame Metrics:")
         print(f"Avg. Game Length: {sum(self.game_lengths)/num_games:.2f} moves")
         print(f"{self.agent1.__class__.__name__} Patterns: {self.agent1_patterns}")
@@ -144,8 +154,16 @@ class GameSimulator:
     
     
     def _plot_results(self, num_games):
+        '''
+        the privat method [_print_results] can be used to plot the result of the messuremnts of one
+        game simmulation as graphs.
+        The parameter [num_games] is the amount of games the simulator simulated
+        '''
+        
+        # create a plot figure in witch the graphs will take place
         plt.figure(figsize=(18, 12))
         
+        # plot winrates
         plt.subplot(2, 3, 1)
         labels = [
             f"{self.agent1.__class__.__name__}",
@@ -156,12 +174,14 @@ class GameSimulator:
         plt.title('Win Rates')
         plt.ylabel('Number of Games')
 
+        # plot game lenghts
         plt.subplot(2, 3, 2)
         plt.hist(self.game_lengths, bins=range(min(self.game_lengths), max(self.game_lengths)+1), alpha=0.75, color='purple')
         plt.title('Game Length Distribution')
         plt.xlabel('Moves')
         plt.ylabel('Frequency')
 
+        # plot winning patterns
         plt.subplot(2, 3, 3)
         patterns = ['horizontal', 'vertical', 'diagonal']
         a1_counts = [self.agent1_patterns[p] for p in patterns]
@@ -178,6 +198,7 @@ class GameSimulator:
         plt.ylabel('Frequency')
         plt.legend()
 
+        # plot memory usage as graph
         plt.subplot(2, 3, 4)
         plt.plot(range(1, num_games+1), self.memory_usages, marker='o', color='red')
         plt.title('Memory Usage')
@@ -185,6 +206,7 @@ class GameSimulator:
         plt.ylabel('MB')
         plt.grid(True)
 
+        # plot execution time as graph
         plt.subplot(2, 3, 5)
         plt.plot(range(1, num_games+1), self.execution_times, marker='o', color='green')
         plt.title('Execution Time')
