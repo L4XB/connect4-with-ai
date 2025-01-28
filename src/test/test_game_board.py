@@ -214,15 +214,15 @@ class TestGameBoardMethods(unittest.TestCase):
         # simulate a full board with no winner
         self.game_board.board = [
             ["○", "●", "●", "○", "●", "○", "○"],
-            ["●", "●", "○", "●", "○", "●", "●"],
-            ["○", "●", "●", "○", "○", "●", "○"],
-            ["●", "○", "○", "●", "○", "●", "○"],
+            ["○", "●", "●", "●", "○", "●", "●"],
+            ["○", "●", "○", "○", "○", "●", "○"],
+            ["●", "○", "●", "●", "○", "●", "○"],
             ["○", "○", "●", "●", "●", "○", "○"],
             ["●", "○", "●", "●", "○", "●", "●"]
         ]
         
         # checks if the is_draw method works correctly and returns True
-        self.game_board.is_draw()
+        self.assertTrue(self.game_board.is_draw()) 
         
         # reset board
         self.game_board.reset()
