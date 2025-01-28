@@ -1,6 +1,6 @@
 import numpy as np
 from tqdm import tqdm
-from agents.rl_agent.agent import RLAgent
+from outdated_rl_agent.agent import RLAgent
 from agents.mini_max_agent import MiniMaxAgent
 from enviroment.game_board import GameBoard
 from constants import *
