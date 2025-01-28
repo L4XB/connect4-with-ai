@@ -50,7 +50,7 @@ def train():
     minimax = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_TWO_SYMBOL, max_depth=4)
     
     episodes = 500
-    eval_interval = 50  # Führe Evaluation alle 50 Episoden durch
+    eval_interval = 100  # Führe Evaluation alle 50 Episoden durch
     best_win_rate = -np.inf
     
     # Training Loop

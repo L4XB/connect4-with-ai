@@ -1,4 +1,4 @@
-from src.constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
+from constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
 import random as rd
 import copy
 

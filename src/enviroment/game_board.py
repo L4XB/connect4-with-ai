@@ -1,4 +1,4 @@
-from src.constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
+from constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
 
 class GameBoard:
     def __init__(self, rows, cols):
