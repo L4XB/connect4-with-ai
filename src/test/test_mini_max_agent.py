@@ -8,7 +8,7 @@ class TestMiniMaxAgentMethods(unittest.TestCase):
         super().__init__(methodName)
         
         # create new MiniMaxAgent object to test it
-        self.minimax_agent = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL, max_depth=3)
+        self.minimax_agent = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL, max_depth=2)
     
     def testInitialAgentSetup(self):
         '''
@@ -20,7 +20,7 @@ class TestMiniMaxAgentMethods(unittest.TestCase):
         self.assertEqual(self.minimax_agent.cols, AMOUNT_COLUMNS)
         self.assertEqual(self.minimax_agent.symbol, PLAYER_ONE_SYMBOL)
         self.assertEqual(self.minimax_agent.opponent_symbol, PLAYER_TWO_SYMBOL)
-        self.assertEqual(self.minimax_agent.max_depth, 3)
+        self.assertEqual(self.minimax_agent.max_depth, 2)
     
     def testGetAllLinesMethod(self):
         '''
