@@ -4,7 +4,7 @@ import math
 from src.constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
 
 class MiniMaxAgent:
-    def __init__(self, rows, cols, symbol, max_depth = 1):
+    def __init__(self, rows, cols, symbol, max_depth = 2):
         # attributes [rows] & [cols] are used to get the deffined size of the board
         self.rows = rows
         self.cols = cols
