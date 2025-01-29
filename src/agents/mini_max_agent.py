@@ -1,7 +1,7 @@
 import random as rd
 import copy
 import math
-from constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
+from src.constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
 
 class MiniMaxAgent:
     def __init__(self, rows, cols, symbol, max_depth = 1):
