@@ -1,5 +1,5 @@
-from constants import *
-from enviroment.game_board import GameBoard
+from src.constants import *
+from src.enviroment.game_board import GameBoard
 import time
 import matplotlib.pyplot as plt
 import psutil

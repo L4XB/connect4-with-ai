@@ -1,8 +1,9 @@
-from evaluation.game_simulator import GameSimulator
-from constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL, AMOUNT_COLUMNS, AMOUNT_ROWS
-from agents.smart_agent import SmartAgent
-from agents.mini_max_agent import MiniMaxAgent
-from agents.random_agent import RandomAgent
+from src.evaluation.game_simulator import GameSimulator
+from src.constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL, AMOUNT_COLUMNS, AMOUNT_ROWS
+from src.agents.smart_agent import SmartAgent
+from src.agents.mini_max_agent import MiniMaxAgent
+from src.agents.random_agent import RandomAgent
+from src.agents.ml_agent.agent import AIAgent
 
 ##### evaluations #####
 
@@ -19,3 +20,7 @@ from agents.random_agent import RandomAgent
 # simulator.simulate(500)
 
 # -> minimax agent vs. ml agent
+minimax_agent = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL, max_depth = 3)
+ai_agent = AIAgent("src/agents/ml_agent/connect4_model.pth", PLAYER_TWO_SYMBOL)
+simulator = GameSimulator(minimax_agent, PLAYER_ONE_SYMBOL, ai_agent, PLAYER_TWO_SYMBOL)
+simulator.simulate(500)
