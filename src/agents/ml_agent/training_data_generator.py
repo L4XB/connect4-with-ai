@@ -1,17 +1,19 @@
 import pickle
-from src.constants import *
-from src.agents.mini_max_agent import MiniMaxAgent
-from src.enviroment.game_board import GameBoard
 from tqdm import tqdm
-
+from src.constants import AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
+from src.agents.smart_agent import SmartAgent
+from src.enviroment.game_board import GameBoard
 
 def board_to_vector(board, symbol):
+    # 2D-Liste zurückgeben
     vec = []
     for row in board:
+        row_vec = []
         for cell in row:
-            if cell == symbol: vec.append(1)
-            elif cell == " ": vec.append(0)
-            else: vec.append(-1)
+            if cell == symbol: row_vec.append(1)
+            elif cell == " ": row_vec.append(0)
+            else: row_vec.append(-1)
+        vec.append(row_vec)
     return vec
 
 def augment_data(data):
@@ -20,16 +22,14 @@ def augment_data(data):
         # Original
         augmented.append((state, move))
         # Gespiegelte Version
-        mirrored_state = [row[::-1] for row in state]
+        mirrored_state = [row[::-1] for row in state]  # Zeilen spiegeln
         mirrored_move = 6 - move
         augmented.append((mirrored_state, mirrored_move))
     return augmented
 
-def generate_data(num_games=1000, depth=4):
-    agent1 = MiniMaxAgent(depth)
-    agent1.set_symbol(PLAYER_ONE_SYMBOL)
-    agent2 = MiniMaxAgent(depth)
-    agent2.set_symbol(PLAYER_TWO_SYMBOL)
+def generate_data(num_games=1000, depth=2):
+    agent1 = SmartAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL)
+    agent2 = SmartAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_TWO_SYMBOL)
 
     data = []
     for _ in tqdm(range(num_games), desc="Generating games"):
@@ -54,5 +54,5 @@ def generate_data(num_games=1000, depth=4):
         pickle.dump(augment_data(data), f)
     print(f"Generated {len(data)} samples")
 
-
-generate_data(num_games=5000, depth=3)
+# Daten generieren
+generate_data(num_games=15000, depth=3)
