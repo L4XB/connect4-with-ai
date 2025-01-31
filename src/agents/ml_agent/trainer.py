@@ -4,6 +4,7 @@ from torch.utils.data import Dataset, DataLoader
 import pickle
 import numpy as np
 from model import Connect4CNN
+from constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
 
 class Connect4Dataset(Dataset):
     def __init__(self, data_paths):
@@ -34,19 +35,19 @@ class Connect4Dataset(Dataset):
                 if cell == 0:
                     board_row.append(' ')
                 elif cell == 1:
-                    board_row.append('●')
+                    board_row.append(PLAYER_ONE_SYMBOL)
                 elif cell == 2:
-                    board_row.append('○')
+                    board_row.append(PLAYER_TWO_SYMBOL)
             board.append(board_row)
         return board
 
     def board_to_tensor(self, board):
         if not isinstance(board[0], list):
             board = [board[i:i+7] for i in range(0, len(board), 7)]
-            board = [[' ' if cell == 0 else '●' if cell == 1 else '○' for cell in row] for row in board]
+            board = [[' ' if cell == 0 else PLAYER_ONE_SYMBOL if cell == 1 else PLAYER_TWO_SYMBOL for cell in row] for row in board]
 
-        channel_self = [[1.0 if cell == '●' else 0.0 for cell in row] for row in board]
-        channel_opp = [[1.0 if cell == '○' else 0.0 for cell in row] for row in board]
+        channel_self = [[1.0 if cell == PLAYER_ONE_SYMBOL else 0.0 for cell in row] for row in board]
+        channel_opp = [[1.0 if cell == PLAYER_TWO_SYMBOL else 0.0 for cell in row] for row in board]
         return torch.FloatTensor([channel_self, channel_opp])
 
 
