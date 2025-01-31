@@ -124,19 +124,39 @@ class MiniMaxAgent:
                     break
             return min_eval
 
+
     def _heuristic_evaluation(self, board):
         '''
-        the private method [_heuristic_evaluation] calculates a score of the evaluation of all lines
-        and returns this score.
+        The private method [_heuristic_evaluation] calculates a score of the evaluation of all lines
+        and returns this score. It now includes:
+        1. Line evaluations (horizontal, vertical, diagonal)
+        2. Center control bonus
+        3. Threat detection (immediate wins/blocks)
         '''
         
         score = 0
         
-        # evaluate all possible lines
+        # Evaluate all possible lines
         for line in self._get_all_lines(board):
             score += self._evaluate_line(line)
         
+        # Add center control bonus
+        center_columns = [2, 3, 4] 
+        for row in range(self.rows):
+            for col in center_columns:
+                if board[row][col] == self.symbol:
+                    score += 3 
+                elif board[row][col] == self.opponent_symbol:
+                    score -= 3 
+        
+        for col in range(self.cols):
+            if self._is_winning_move(board, col, self.symbol):
+                score += 1000
+            if self._is_winning_move(board, col, self.opponent_symbol):
+                score -= 1000
+        
         return score
+
 
     def _evaluate_line(self, line):
         '''
@@ -149,15 +169,12 @@ class MiniMaxAgent:
         opponent_count = line.count(self.opponent_symbol)
         
         # returns diffrent evaluations fr diffrent states.
-        if opponent_count == 3 and player_count == 0:
-            return -100
-        if player_count == 3 and opponent_count == 0:
-            return 50
-        if player_count == 2 and opponent_count == 0:
-            return 10
-        if player_count == 1 and opponent_count == 0:
-            return 1
+        if opponent_count == 3 and player_count == 0: return -500
+        if player_count == 3 and opponent_count == 0: return 100
+        if player_count == 2 and opponent_count == 0: return 20
+        if player_count == 1 and opponent_count == 0: return 2
         return 0
+
 
     def _get_all_lines(self, board):
         '''

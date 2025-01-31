@@ -14,6 +14,17 @@ def board_to_vector(board, symbol):
             else: vec.append(-1)
     return vec
 
+def augment_data(data):
+    augmented = []
+    for state, move in data:
+        # Original
+        augmented.append((state, move))
+        # Gespiegelte Version
+        mirrored_state = [row[::-1] for row in state]
+        mirrored_move = 6 - move
+        augmented.append((mirrored_state, mirrored_move))
+    return augmented
+
 def generate_data(num_games=1000, depth=4):
     agent1 = MiniMaxAgent(depth)
     agent1.set_symbol(PLAYER_ONE_SYMBOL)
@@ -40,7 +51,7 @@ def generate_data(num_games=1000, depth=4):
         data.extend(game_history)
 
     with open(f"connect4_data_{depth}d_{num_games}g.pkl", "wb") as f:
-        pickle.dump(data, f)
+        pickle.dump(augment_data(data), f)
     print(f"Generated {len(data)} samples")
 
 
