@@ -5,7 +5,6 @@ from src.agents.smart_agent import SmartAgent
 from src.enviroment.game_board import GameBoard
 
 def board_to_vector(board, symbol):
-    # 2D-Liste zurückgeben
     vec = []
     for row in board:
         row_vec = []
@@ -19,10 +18,8 @@ def board_to_vector(board, symbol):
 def augment_data(data):
     augmented = []
     for state, move in data:
-        # Original
         augmented.append((state, move))
-        # Gespiegelte Version
-        mirrored_state = [row[::-1] for row in state]  # Zeilen spiegeln
+        mirrored_state = [row[::-1] for row in state]
         mirrored_move = 6 - move
         augmented.append((mirrored_state, mirrored_move))
     return augmented
@@ -54,5 +51,5 @@ def generate_data(num_games=1000, depth=2):
         pickle.dump(augment_data(data), f)
     print(f"Generated {len(data)} samples")
 
-# Daten generieren
+
 generate_data(num_games=15000, depth=3)
