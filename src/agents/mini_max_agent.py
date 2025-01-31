@@ -128,7 +128,7 @@ class MiniMaxAgent:
     def _heuristic_evaluation(self, board):
         '''
         The private method [_heuristic_evaluation] calculates a score of the evaluation of all lines
-        and returns this score. It now includes:
+        and returns this score. It includes:
         1. line evaluations (horizontal, vertical, diagonal)
         2. center control bonus
         3. threat detection (immediate wins/blocks)
