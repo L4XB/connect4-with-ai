@@ -59,8 +59,7 @@ def train():
     criterion = torch.nn.CrossEntropyLoss()
 
     dataset = Connect4Dataset([
-        "connect4_data_3d_10000g.pkl",
-        "connect4_data_3d_5000g.pkl"
+        # add datasets
     ])
     print(f"Dataset loaded with {len(dataset):,} samples")
     
