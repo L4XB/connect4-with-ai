@@ -3,7 +3,6 @@ import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
 import pickle
 import numpy as np
-from ucimlrepo import fetch_ucirepo 
 from model import Connect4CNN
 
 class Connect4Dataset(Dataset):
