@@ -69,17 +69,26 @@ def train():
     ])
     print(f"Dataset loaded with {len(dataset):,} samples")
 
-    loader = DataLoader(dataset, batch_size=128, shuffle=True)
+    # Split dataset into training and validation
+    train_size = int(0.8 * len(dataset))
+    val_size = len(dataset) - train_size
+    train_dataset, val_dataset = torch.utils.data.random_split(dataset, [train_size, val_size])
     
-    # For tracking loss
+    train_loader = DataLoader(train_dataset, batch_size=128, shuffle=True)
+    val_loader = DataLoader(val_dataset, batch_size=128, shuffle=False)
+
+    # For tracking loss and early stopping
     epoch_losses = []
-    
+    best_val_loss = float('inf')
+    patience = 5
+    patience_counter = 0
+
     print("\nStarting training...")
-    # Training
+    # Training loop
     for epoch in range(50):
         model.train()
         total_loss = 0
-        progress_bar = tqdm(loader, desc=f"Epoch {epoch+1:3}/{50}", unit="batch", leave=False)
+        progress_bar = tqdm(train_loader, desc=f"Epoch {epoch+1:3}/{50}", unit="batch", leave=False)
 
         for states, moves in progress_bar:
             states, moves = states.to(device), moves.to(device)
@@ -96,16 +105,40 @@ def train():
             # Update metrics
             current_loss = loss.item()
             total_loss += current_loss
-            
-            # Update progress bar
             progress_bar.set_postfix_str(f"loss: {current_loss:.4f}")
 
-        # Epoch statistics
-        avg_loss = total_loss / len(loader)
+        # Calculate average training loss
+        avg_loss = total_loss / len(train_loader)
         epoch_losses.append(avg_loss)
-        
-        # Update main progress bar description
-        print(f"Epoch {epoch+1:3d} completed | Average loss: {avg_loss:.4f}")
+
+        # Validation phase
+        model.eval()
+        total_val_loss = 0
+        with torch.no_grad():
+            for states, moves in val_loader:
+                states, moves = states.to(device), moves.to(device)
+                outputs = model(states)
+                loss = criterion(outputs, moves)
+                total_val_loss += loss.item()
+
+        avg_val_loss = total_val_loss / len(val_loader)
+
+        # Epoch statistics
+        print(f"Epoch {epoch+1:3d} completed | Train loss: {avg_loss:.4f} | Val loss: {avg_val_loss:.4f}")
+
+        # Early stopping check
+        if avg_val_loss < best_val_loss:
+            best_val_loss = avg_val_loss
+            patience_counter = 0
+            torch.save(model.state_dict(), "connect4_model.pth")
+            print(f"Validation loss improved. Model saved.")
+        else:
+            patience_counter += 1
+            print(f"No improvement for {patience_counter}/{patience} epochs")
+            
+        if patience_counter >= patience:
+            print(f"\nEarly stopping triggered after {patience} epochs without improvement")
+            break
 
     # Save loss plot
     plt.figure(figsize=(10, 6))
@@ -117,7 +150,6 @@ def train():
     plt.savefig("training_loss.png")
     plt.close()
 
-    print("\nTraining completed! Saving model to 'connect4_model.pth'")
-    torch.save(model.state_dict(), "connect4_model.pth")
+    print("\nTraining completed!")
 
 train()
