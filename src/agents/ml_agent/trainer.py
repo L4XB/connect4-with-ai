@@ -3,6 +3,8 @@ import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
 import pickle
 import numpy as np
+import matplotlib.pyplot as plt
+from tqdm import tqdm
 from model import Connect4CNN
 from constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
 
@@ -54,46 +56,66 @@ class Connect4Dataset(Dataset):
 def train():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
-    
+
+    # Initialize model
     model = Connect4CNN().to(device)
     optimizer = optim.Adam(model.parameters(), lr=0.0005)
     criterion = torch.nn.CrossEntropyLoss()
 
+    # Create dataset and DataLoader
     dataset = Connect4Dataset([
-        # add datasets
+        "connect4_data_3d_10000g.pkl",
+        "connect4_data_3d_5000g.pkl"
     ])
     print(f"Dataset loaded with {len(dataset):,} samples")
-    
-    loader = DataLoader(dataset, batch_size=128, shuffle=True)
-    total_batches = len(loader)
-    print(f"Training with {total_batches} batches per epoch")
 
+    loader = DataLoader(dataset, batch_size=128, shuffle=True)
+    
+    # For tracking loss
+    epoch_losses = []
+    
     print("\nStarting training...")
-    for epoch in range(80):
+    # Training
+    for epoch in range(50):
         model.train()
         total_loss = 0
-        
-        for batch_idx, (states, moves) in enumerate(loader):
+        progress_bar = tqdm(loader, desc=f"Epoch {epoch+1:3}/{50}", unit="batch", leave=False)
+
+        for states, moves in progress_bar:
             states, moves = states.to(device), moves.to(device)
-            
+
+            # Forward pass
             optimizer.zero_grad()
             outputs = model(states)
             loss = criterion(outputs, moves)
-            
+
+            # Backward pass
             loss.backward()
             optimizer.step()
-            
-            total_loss += loss.item()
 
-            if batch_idx in [total_batches // 4, total_batches // 2, 3 * total_batches // 4]:
-                progress = (batch_idx + 1) / total_batches * 100
-                print(f"Epoch {epoch+1:3d}: {progress:3.0f}% complete | Current loss: {loss.item():.4f}")
-        
+            # Update metrics
+            current_loss = loss.item()
+            total_loss += current_loss
+            
+            # Update progress bar
+            progress_bar.set_postfix_str(f"loss: {current_loss:.4f}")
+
+        # Epoch statistics
         avg_loss = total_loss / len(loader)
-        print(f"Epoch {epoch+1:3d} completed | Average loss: {avg_loss:.4f}")
+        epoch_losses.append(avg_loss)
         
-        if (epoch + 1) % 10 == 0:
-            print()
+        # Update main progress bar description
+        print(f"Epoch {epoch+1:3d} completed | Average loss: {avg_loss:.4f}")
+
+    # Save loss plot
+    plt.figure(figsize=(10, 6))
+    plt.plot(epoch_losses, 'b-o', linewidth=2)
+    plt.title("Training Loss Progress")
+    plt.xlabel("Epoch")
+    plt.ylabel("Average Loss")
+    plt.grid(True)
+    plt.savefig("training_loss.png")
+    plt.close()
 
     print("\nTraining completed! Saving model to 'connect4_model.pth'")
     torch.save(model.state_dict(), "connect4_model.pth")
