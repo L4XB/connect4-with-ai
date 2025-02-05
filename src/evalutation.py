@@ -20,7 +20,7 @@ from src.agents.ml_agent.agent import AIAgent
 # simulator.simulate(500)
 
 # -> minimax agent vs. ml agent
-# minimax_agent = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL, max_depth = 3)
-# ai_agent = AIAgent(USED_MODEL_PATH, PLAYER_TWO_SYMBOL)
-# simulator = GameSimulator(minimax_agent, PLAYER_ONE_SYMBOL, ai_agent, PLAYER_TWO_SYMBOL)
-# simulator.simulate(500)
+minimax_agent = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL, max_depth = 3)
+ai_agent = AIAgent(USED_MODEL_PATH, PLAYER_TWO_SYMBOL)
+simulator = GameSimulator(minimax_agent, PLAYER_ONE_SYMBOL, ai_agent, PLAYER_TWO_SYMBOL)
+simulator.simulate(500)

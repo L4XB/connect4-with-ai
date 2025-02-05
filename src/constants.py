@@ -8,4 +8,4 @@ PLAYER_TWO_SYMBOL = "○"
 AMOUNT_COLUMNS = 7
 AMOUNT_ROWS = 6
 
-USED_MODEL_PATH = "src/agents/ml_agent/model/connect4_model_good_performance.pth"
+USED_MODEL_PATH = "src/agents/ml_agent/model/connect4_model_full_trained.pth"
