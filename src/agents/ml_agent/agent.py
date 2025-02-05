@@ -13,6 +13,7 @@ class AIAgent:
         self.model.to(self.device)
 
     def get_move(self, board):
+        # TODO: Add check if can make winning move or blocking move
         state = self.board_to_tensor(board)
         with torch.no_grad():
             logits = self.model(state)
