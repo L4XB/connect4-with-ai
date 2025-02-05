@@ -5,7 +5,7 @@ import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-from agents.ml_agent.model import Connect4CNN
+from src.agents.ml_agent.model import Connect4CNN
 
 class Connect4Dataset(Dataset):
     def __init__(self, data_paths):
