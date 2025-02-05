@@ -16,24 +16,24 @@ class AIAgent:
         state = self.board_to_tensor(board)
         with torch.no_grad():
             logits = self.model(state)
-        
+
         valid_moves = [col for col in range(7) if board[0][col] == " "]
-        
+
         if not valid_moves:
             raise ValueError("No valid moves available.")
-        
+
         move_probs = torch.softmax(logits[0][valid_moves], dim=0)
-        
+
         selected_move = valid_moves[torch.argmax(move_probs).item()]
-        
+
         return selected_move
 
     def board_to_tensor(self, board):
         if not isinstance(board[0], list):
             board = [board[i:i+7] for i in range(0, len(board), 7)]
-        
+
         channel_self = [[1.0 if cell == self.symbol else 0.0 for cell in row] for row in board]
         channel_opp = [[1.0 if cell == self.opponent_symbol else 0.0 for cell in row] for row in board]
-        
+
         tensor = torch.FloatTensor([channel_self, channel_opp]).unsqueeze(0)
         return tensor.to(self.device)

@@ -5,7 +5,7 @@ import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-from src.agents.ml_agent.model import Connect4CNN
+from agents.ml_agent.model import Connect4CNN
 
 class Connect4Dataset(Dataset):
     def __init__(self, data_paths):
@@ -53,7 +53,7 @@ class Connect4Dataset(Dataset):
         # Handle both 2D and flattened state formats
         if not isinstance(state[0], list):  # Flattened state (e.g., from generated data)
             state = [state[i:i+7] for i in range(0, len(state), 7)]
-        
+
         # Convert numerical values to channels
         channel_self = [[1.0 if cell == 1 else 0.0 for cell in row] for row in state]
         channel_opp = [[1.0 if cell == -1 else 0.0 for cell in row] for row in state]
@@ -75,6 +75,7 @@ def train():
         "connect4_data_minimax_3d_800g.pkl",
         "connect4_data_minimax_3d_vs_minimax_4d_1200g.pkl",
         "connect4_data_minimax_3d_vs_minimax_4d_150g.pkl",
+        "connect4_data_minimax_3d_vs_minimax_4d_900g.pkl",
         "connect4_data_minimax_4d_250g.pkl",
         "connect4_data_minimax_4d_400g.pkl",
         "connect4_data_minimax_4d_450g.pkl",
@@ -83,9 +84,9 @@ def train():
         "connect4_data_minimax_4d_800g.pkl",
         "connect4_data_minimax_4d_vs_minimax_5d_100g.pkl",
         "connect4_data_minimax_4d_vs_minimax_5d_150g.pkl",
-        "connect4_data_smart_2000g.pkl",
-        "connect4_data_smart_vs_minimax_3d_1000g.pkl",
-        "connect4_data_smart_vs_minimax_4d_1000g.pkl",
+        #"connect4_data_smart_2000g.pkl",
+        #"connect4_data_smart_vs_minimax_3d_1000g.pkl",
+        #"connect4_data_smart_vs_minimax_4d_1000g.pkl",
     ])
     print(f"Dataset loaded with {len(dataset):,} samples")
     sample_state, sample_move = dataset[0]
@@ -103,15 +104,15 @@ def train():
     # For tracking loss and early stopping
     epoch_losses = []
     best_val_loss = float('inf')
-    patience = 5
+    patience = 3
     patience_counter = 0
 
     print("\nStarting training...")
     # Training loop
-    for epoch in range(150):
+    for epoch in range(10):
         model.train()
         total_loss = 0
-        progress_bar = tqdm(train_loader, desc=f"Epoch {epoch+1:3}/{150}", unit="batch", leave=False)
+        progress_bar = tqdm(train_loader, desc=f"Epoch {epoch+1:3}/{10}", unit="batch", leave=False)
 
         for states, moves in progress_bar:
             states, moves = states.to(device), moves.to(device)
