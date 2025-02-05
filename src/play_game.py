@@ -1,7 +1,7 @@
 from src.constants import AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
 
 from src.enviroment.game_board import GameBoard
-from src.agents.mini_max_agent import MiniMaxAgent
+from src.agents.ml_agent.agent import AIAgent
 
 def play_game_vs_agent():
     '''
@@ -12,7 +12,7 @@ def play_game_vs_agent():
     
     # create gameboard and agent
     board = GameBoard(AMOUNT_ROWS, AMOUNT_COLUMNS)
-    agent = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL)
+    agent = AIAgent("src/agents/ml_agent/model/connect4_model_good_performance.pth", PLAYER_ONE_SYMBOL)
     
     # game interrations 
     while True:
