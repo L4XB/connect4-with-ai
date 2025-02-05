@@ -5,7 +5,7 @@ from src.constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
 class AIAgent:
     def __init__(self, model_path, symbol):
         self.model = Connect4CNN()
-        self.model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+        self.model.load_state_dict(torch.load(model_path,weights_only = True, map_location=torch.device('cpu')))
         self.model.eval()
         self.symbol = symbol
         self.opponent_symbol = PLAYER_TWO_SYMBOL if symbol == PLAYER_ONE_SYMBOL else PLAYER_ONE_SYMBOL
