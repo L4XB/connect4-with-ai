@@ -49,7 +49,7 @@ def generate_data(num_games=1000, depth=2):
 
     data = []
     for _ in tqdm(range(num_games), desc="Generating games"):
-        board = GameBoard()
+        board = GameBoard(AMOUNT_ROWS, AMOUNT_COLUMNS)
         game_history = []
         current_agent = agent1
         while True:
@@ -68,5 +68,4 @@ def generate_data(num_games=1000, depth=2):
         pickle.dump(augment_data(data), f)
     print(f"Generated {len(data)} samples")
 
-# Generate data
 generate_data(num_games=900, depth=4)

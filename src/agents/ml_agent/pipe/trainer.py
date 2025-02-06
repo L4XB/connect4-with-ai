@@ -22,22 +22,22 @@ def train():
 
     # create dataset and DataLoader
     dataset = Connect4Dataset([
-        "connect4_data_minimax_3d_750g.pkl",
-        "connect4_data_minimax_3d_800g.pkl",
-        "connect4_data_minimax_3d_vs_minimax_4d_1200g.pkl",
-        "connect4_data_minimax_3d_vs_minimax_4d_150g.pkl",
-        "connect4_data_minimax_3d_vs_minimax_4d_900g.pkl",
-        "connect4_data_minimax_4d_250g.pkl",
-        "connect4_data_minimax_4d_400g.pkl",
-        "connect4_data_minimax_4d_450g.pkl",
-        "connect4_data_minimax_4d_500g.pkl",
-        "connect4_data_minimax_4d_550g.pkl",
-        "connect4_data_minimax_4d_800g.pkl",
-        "connect4_data_minimax_4d_vs_minimax_5d_100g.pkl",
-        "connect4_data_minimax_4d_vs_minimax_5d_150g.pkl",
-        #"connect4_data_smart_2000g.pkl",
-        #"connect4_data_smart_vs_minimax_3d_1000g.pkl",
-        #"connect4_data_smart_vs_minimax_4d_1000g.pkl",
+        "src/agents/ml_agent/data/connect4_data_minimax_3d_750g.pkl",
+        "src/agents/ml_agent/data/connect4_data_minimax_3d_800g.pkl",
+        "src/agents/ml_agent/data/connect4_data_minimax_3d_vs_minimax_4d_1200g.pkl",
+        "src/agents/ml_agent/data/connect4_data_minimax_3d_vs_minimax_4d_150g.pkl",
+        "src/agents/ml_agent/data/connect4_data_minimax_3d_vs_minimax_4d_900g.pkl",
+        "src/agents/ml_agent/data/connect4_data_minimax_4d_250g.pkl",
+        "src/agents/ml_agent/data/connect4_data_minimax_4d_400g.pkl",
+        "src/agents/ml_agent/data/connect4_data_minimax_4d_450g.pkl",
+        "src/agents/ml_agent/data/connect4_data_minimax_4d_500g.pkl",
+        "src/agents/ml_agent/data/connect4_data_minimax_4d_550g.pkl",
+        "src/agents/ml_agent/data/connect4_data_minimax_4d_800g.pkl",
+        "src/agents/ml_agent/data/connect4_data_minimax_4d_vs_minimax_5d_100g.pkl",
+        "src/agents/ml_agent/data/connect4_data_minimax_4d_vs_minimax_5d_150g.pkl",
+        #"src/agents/ml_agent/data/connect4_data_smart_2000g.pkl",
+        #"src/agents/ml_agent/data/connect4_data_smart_vs_minimax_3d_1000g.pkl",
+        #"src/agents/ml_agent/data/connect4_data_smart_vs_minimax_4d_1000g.pkl",
     ])
     print(f"Dataset loaded with {len(dataset):,} samples")
     sample_state, sample_move = dataset[0]

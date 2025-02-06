@@ -7,7 +7,7 @@ class AIAgent:
     def __init__(self, model_path, symbol):
         # initialize the neural network model
         self.model = Connect4CNN()
-        self.model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+        self.model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu'), weights_only=True))
         self.model.eval()
         
         # assign a symbol to the agent

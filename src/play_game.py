@@ -1,4 +1,4 @@
-from src.constants import AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL, USED_MODEL_PATH
+from src.constants import AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
 
 from src.enviroment.game_board import GameBoard
 from src.agents.ml_agent.agent import AIAgent
