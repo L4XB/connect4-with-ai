@@ -26,6 +26,7 @@ class Connect4CNN(nn.Module):
         self.fc1 = nn.Linear(64 * 6 * 7, 256)
         self.fc2 = nn.Linear(256, 7)
 
+
     def forward(self, x):
         '''
         the method [forward] is used to Define the forward pass of the neural network and pass the data trough the

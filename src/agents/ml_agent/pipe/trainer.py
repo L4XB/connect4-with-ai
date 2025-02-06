@@ -11,6 +11,7 @@ def train():
     the method [train] initializes and trains the Connect4CNN model using the specified dataset.
     It includes data loading, model training, validation, and early stopping.
     '''
+    
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
 

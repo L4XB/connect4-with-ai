@@ -24,6 +24,7 @@ class AIAgent:
         self.cols = AMOUNT_COLUMNS
         self.rows = AMOUNT_ROWS
 
+
     def get_move(self, board):
         '''
         the method [get_move] uses the neural network model to decide what the best move is.
@@ -65,6 +66,7 @@ class AIAgent:
 
         return selected_move
 
+
     def board_to_tensor(self, board):
         '''
         the method [board_to_tensor] converts the board to a tensor that can be used as input to the neural network model.
@@ -78,6 +80,7 @@ class AIAgent:
 
         tensor = torch.FloatTensor([channel_self, channel_opp]).unsqueeze(0)
         return tensor.to(self.device)
+
 
     def _is_winning_move(self, board, tkn):
         """
@@ -113,6 +116,7 @@ class AIAgent:
         # no winning line found
         return False
 
+
     def _get_possible_moves(self, board):
         '''
         the private method [_get_possible_moves] iterates over the top elements of each column [cols]
@@ -128,6 +132,7 @@ class AIAgent:
                 possible_cols.append(col)
 
         return possible_cols
+
 
     def _play_move(self, board, col, tkn):
         '''

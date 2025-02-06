@@ -12,6 +12,7 @@ def board_to_vector(board, symbol):
     - 0 represents an empty cell
     - -1 represents the opponent's symbol
     '''
+    
     vec = []
     for row in board:
         row_vec = []
@@ -25,25 +26,31 @@ def board_to_vector(board, symbol):
         vec.append(row_vec)
     return vec
 
+
 def augment_data(data):
     '''
     the method [augment_data] augments the data by adding mirrored versions of the states and moves.
     '''
+    
     augmented = []
     for state, move in data:
+        
         # Original
         augmented.append((state, move))
+        
         # Mirrored version
         mirrored_state = [row[::-1] for row in state]
         mirrored_move = 6 - move
         augmented.append((mirrored_state, mirrored_move))
     return augmented
 
+
 def generate_data(num_games=1000, depth=2):
     '''
     the function [generate_data] generates training data by playing games between two MiniMax agents.
     The generated data is augmented and saved to a pickle file.
     '''
+    
     agent1 = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, max_depth=depth, symbol=PLAYER_ONE_SYMBOL)
     agent2 = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, max_depth=depth, symbol=PLAYER_TWO_SYMBOL)
 
