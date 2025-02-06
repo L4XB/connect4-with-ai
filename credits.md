@@ -46,14 +46,42 @@
 
 ### Ml Agent
 
+ ○ Lecture Slides + Colab examples
+
+ ○  https://pytorch.org/tutorials/intermediate/reinforcement_q_learning.html
+    -> Got very much informations abount reinforcement leraning from here
+
+ ○ https://medium.com/analytics-vidhya/introduction-to-reinforcement-learning-rl-in-pytorch-c0862989cc0e
+    -> Some informatons from here also helped me very much
+
+ ○ https://medium.com/@arshren/step-by-step-guide-to-implementing-ddpg-reinforcement-learning-in-pytorch-9732f42faac9
+    -> Some informatons from here also helped me very much
+
+ ○ https://www.youtube.com/watch?v=2S1dgHpqCdk&list=PLhhyoLH6IjfxeoooqP9rhU3HJIAVAJ3Vz
+    -> Got super much informations regarding Neural Networks from this series
+
+ ○ https://pytorch.org/docs/stable/index.html
+    -> Got very much from here, to better understand how pytorch work and to check was is possible
+
+ ○ https://www.youtube.com/watch?v=wnK3uWv_WkU
+    -> Got some nice informations about CNN's from here 
+
+ ○ 
+
+
+ ○ 
+
+
+### Innovation & Beyond
+
 
 ### Inspiration
 
  ○ https://github.com/ForrestKnight/ConnectFour/blob/master/AIClass.py
-    -> Check how others display the board and organize theri code (copyed nothing from this)
+    -> Check how others display the board and organize theri code (but copyed nothing from this)
 
  ○ https://github.com/erikackermann/Connect-Four/blob/master/minimax.py
-    -> Check how others implemet the mixmax (copyed nothing from this)
+    -> Check how others implemet the mixmax (but copyed nothing from this)
 
 
 ### Evaluation
@@ -74,4 +102,4 @@
 ### Unit Tests
 
  ○ https://docs.python.org/3/library/unittest.html
-    -> To unserstand how unittest in python work
+    -> To better unserstand how unittest in python work
