@@ -5,17 +5,32 @@ import copy
 
 class AIAgent:
     def __init__(self, model_path, symbol):
+        # initialize the neural network model
         self.model = Connect4CNN()
         self.model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
         self.model.eval()
+        
+        # assign a symbol to the agent
         self.symbol = symbol
+        
+        # assigns the other symbol to the other player
         self.opponent_symbol = PLAYER_TWO_SYMBOL if symbol == PLAYER_ONE_SYMBOL else PLAYER_ONE_SYMBOL
+        
+        # set the device to GPU if available, otherwise CPU
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model.to(self.device)
+        
+        # set the number of columns and rows
         self.cols = AMOUNT_COLUMNS
         self.rows = AMOUNT_ROWS
 
     def get_move(self, board):
+        '''
+        the method [get_move] uses the neural network model to decide what the best move is.
+        It first checks for immediate winning or blocking moves, and if none are found,
+        it uses the model to predict the best move.
+        '''
+        
         # check for winning move
         possible_moves = self._get_possible_moves(board)
 
@@ -24,7 +39,6 @@ class AIAgent:
             board_copy = copy.deepcopy(board)
             board_copy = self._play_move(board_copy, possible_moves[move], self.symbol)
             if self._is_winning_move(board_copy, self.symbol):
-
                 return possible_moves[move]
 
         # check for move to block opponent
@@ -34,22 +48,28 @@ class AIAgent:
             if self._is_winning_move(board_copy, self.opponent_symbol):
                 return possible_moves[move]
 
+        # convert the board to a tensor and get the model's predictions
         state = self.board_to_tensor(board)
         with torch.no_grad():
             logits = self.model(state)
 
+        # get the valid moves
         valid_moves = [col for col in range(7) if board[0][col] == " "]
 
         if not valid_moves:
             raise ValueError("No valid moves available.")
 
+        # get the probabilities of the valid moves and select the best move
         move_probs = torch.softmax(logits[0][valid_moves], dim=0)
-
         selected_move = valid_moves[torch.argmax(move_probs).item()]
 
         return selected_move
 
     def board_to_tensor(self, board):
+        '''
+        the method [board_to_tensor] converts the board to a tensor that can be used as input to the neural network model.
+        '''
+        
         if not isinstance(board[0], list):
             board = [board[i:i+7] for i in range(0, len(board), 7)]
 
@@ -61,9 +81,9 @@ class AIAgent:
 
     def _is_winning_move(self, board, tkn):
         """
-        the method [check_winner] checks if a player with a given token [tkn] has won,
-        if so the method return True if not the method return False.
-        a player won if he has four of his tokens in a row/column or diagonal connected.
+        the method [_is_winning_move] checks if a player with a given token [tkn] has won,
+        if so the method returns True, otherwise it returns False.
+        A player wins if they have four of their tokens in a row, column, or diagonal.
         """
 
         # checks horizontal lines
@@ -95,15 +115,15 @@ class AIAgent:
 
     def _get_possible_moves(self, board):
         '''
-        the privat method [_get_possible_moves] interates over the top elements of each colums [cols]
-        and checks if there is a free space. if so it adds this colum to the list [possible_cols].
+        the private method [_get_possible_moves] iterates over the top elements of each column [cols]
+        and checks if there is a free space. If so, it adds this column to the list [possible_cols].
         The return value is the list [possible_cols].
         '''
 
         possible_cols = []
 
         for col in range(self.cols):
-            # checks the top element of each col and append it to [possible_cols] if its empty.
+            # checks the top element of each column and appends it to [possible_cols] if it's empty.
             if board[0][col] == " ":
                 possible_cols.append(col)
 
@@ -111,13 +131,12 @@ class AIAgent:
 
     def _play_move(self, board, col, tkn):
         '''
-        the method [insert_token] checks
-        if its possible to insert a token [tkn] in a Column [col]
-        and insert the token in this column if its possbile.
-        The method return the board after the move is played
+        the method [_play_move] checks if it's possible to insert a token [tkn] in a column [col]
+        and inserts the token in this column if it's possible.
+        The method returns the board after the move is played.
         '''
 
-        # checks if its possbile to set the token [tkn] in the specified column [col]
+        # checks if it's possible to set the token [tkn] in the specified column [col]
         if col < 0 or col >= self.cols:
             print(f"Invalid column: {col}")
             return False
