@@ -1,19 +1,39 @@
 import torch
 from src.agents.ml_agent.model import Connect4CNN
-from src.constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
+from src.constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL, AMOUNT_COLUMNS, AMOUNT_ROWS
+import copy
 
 class AIAgent:
     def __init__(self, model_path, symbol):
         self.model = Connect4CNN()
-        self.model.load_state_dict(torch.load(model_path,weights_only = True, map_location=torch.device('cpu')))
+        self.model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
         self.model.eval()
         self.symbol = symbol
         self.opponent_symbol = PLAYER_TWO_SYMBOL if symbol == PLAYER_ONE_SYMBOL else PLAYER_ONE_SYMBOL
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model.to(self.device)
+        self.cols = AMOUNT_COLUMNS
+        self.rows = AMOUNT_ROWS
 
     def get_move(self, board):
-        # TODO: Add check if can make winning move or blocking move
+        # check for winning move
+        possible_moves = self._get_possible_moves(board)
+
+        # check for winning move
+        for move in range(len(possible_moves)):
+            board_copy = copy.deepcopy(board)
+            board_copy = self._play_move(board_copy, possible_moves[move], self.symbol)
+            if self._is_winning_move(board_copy, self.symbol):
+
+                return possible_moves[move]
+
+        # check for move to block opponent
+        for move in range(len(possible_moves)):
+            board_copy = copy.deepcopy(board)
+            board_copy = self._play_move(board_copy, possible_moves[move], self.opponent_symbol)
+            if self._is_winning_move(board_copy, self.opponent_symbol):
+                return possible_moves[move]
+
         state = self.board_to_tensor(board)
         with torch.no_grad():
             logits = self.model(state)
@@ -38,3 +58,78 @@ class AIAgent:
 
         tensor = torch.FloatTensor([channel_self, channel_opp]).unsqueeze(0)
         return tensor.to(self.device)
+
+    def _is_winning_move(self, board, tkn):
+        """
+        the method [check_winner] checks if a player with a given token [tkn] has won,
+        if so the method return True if not the method return False.
+        a player won if he has four of his tokens in a row/column or diagonal connected.
+        """
+
+        # checks horizontal lines
+        for row in range(self.rows):
+            for col in range(self.cols - 3):
+                if all(board[row][col + i] == tkn for i in range(4)):
+                    return True
+
+        # checks vertical lines
+        for col in range(self.cols):
+            for row in range(self.rows - 3):
+                if all(board[row + i][col] == tkn for i in range(4)):
+                    return True
+
+        # check diagonals from the top right to the bottom left
+        for row in range(self.rows - 3):
+            for col in range(self.cols - 3):
+                if all(board[row + i][col + i] == tkn for i in range(4)):
+                    return True
+
+        # checks diagonals from the left top to the right bottom
+        for row in range(self.rows - 3):
+            for col in range(3, self.cols):
+                if all(board[row + i][col - i] == tkn for i in range(4)):
+                    return True
+
+        # no winning line found
+        return False
+
+    def _get_possible_moves(self, board):
+        '''
+        the privat method [_get_possible_moves] interates over the top elements of each colums [cols]
+        and checks if there is a free space. if so it adds this colum to the list [possible_cols].
+        The return value is the list [possible_cols].
+        '''
+
+        possible_cols = []
+
+        for col in range(self.cols):
+            # checks the top element of each col and append it to [possible_cols] if its empty.
+            if board[0][col] == " ":
+                possible_cols.append(col)
+
+        return possible_cols
+
+    def _play_move(self, board, col, tkn):
+        '''
+        the method [insert_token] checks
+        if its possible to insert a token [tkn] in a Column [col]
+        and insert the token in this column if its possbile.
+        The method return the board after the move is played
+        '''
+
+        # checks if its possbile to set the token [tkn] in the specified column [col]
+        if col < 0 or col >= self.cols:
+            print(f"Invalid column: {col}")
+            return False
+
+        # loops over the board from bottom to top
+        for row in range(self.rows - 1, -1, -1):
+            # checks if the current element is empty
+            if board[row][col] == " ":
+                # sets the token at the empty place in the column
+                board[row][col] = tkn
+                # returns board so that the method execution is stopped
+                return board
+
+        print(f"Column {col} is full.")
+        return board
