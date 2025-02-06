@@ -3,7 +3,7 @@ from unittest.mock import patch, MagicMock
 import torch
 import numpy as np
 from src.agents.ml_agent.agent import AIAgent
-from src.constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL, AMOUNT_COLUMNS, AMOUNT_ROWS, USED_MODEL_PATH, TEST_MODEL_PATH
+from src.constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL, AMOUNT_COLUMNS, AMOUNT_ROWS
 
 class TestAIAgentMethods(unittest.TestCase):
     
@@ -11,7 +11,7 @@ class TestAIAgentMethods(unittest.TestCase):
         super().__init__(methodName)
         
         # sets the model path for the tests
-        self.model_path = TEST_MODEL_PATH
+        self.model_path = "src/agents/ml_agent/models/connect4_model_good_performance.pth"
         
         # assigns the symbols
         self.symbol = PLAYER_ONE_SYMBOL
@@ -72,16 +72,15 @@ class TestAIAgentMethods(unittest.TestCase):
         self.assertEqual(tensor.shape, (1, 2, AMOUNT_ROWS, AMOUNT_COLUMNS))
 
 
-
     def testPossibleMovesDetection(self):
-        """Test detection of available columns"""
+        """the test method [testPossibleMovesDetection] checks the detection of available columns"""
         
-        # Test empty board
+        # test with empty board
         empty_board = [[" "]*AMOUNT_COLUMNS for _ in range(AMOUNT_ROWS)]
         moves = self.agent._get_possible_moves(empty_board)
         self.assertEqual(moves, list(range(AMOUNT_COLUMNS)))
 
-        # Test partially filled board
+        # test with partially filled board
         test_board = [
             [" ", " ", " ", "○", " ", " ", " "],
             [" ", " ", " ", "●", " ", " ", " "],
@@ -95,29 +94,29 @@ class TestAIAgentMethods(unittest.TestCase):
 
 
     def testMovePlayingMechanics(self):
-        """Test token placement mechanics"""
+        """the test method [testMovePlayingMechanics] checks the token placement mechanics"""
         
         test_board = [[" "]*AMOUNT_COLUMNS for _ in range(AMOUNT_ROWS)]
         
-        # Test valid move
+        # test valid move
         new_board = self.agent._play_move(test_board, 3, self.symbol)
         self.assertEqual(new_board[5][3], self.symbol)
         
-        # Test filling column
+        # test filling column
         for _ in range(AMOUNT_ROWS):
             new_board = self.agent._play_move(new_board, 3, self.symbol)
         self.assertEqual(new_board[0][3], self.symbol)
         
-        # Test invalid column
+        # test invalid column
         invalid_board = self.agent._play_move(test_board, -1, self.symbol)
         self.assertFalse(invalid_board)
 
 
     @patch('torch.softmax')
     def testModelPredictionFallback(self, mock_softmax):
-        """Test model prediction when no immediate moves available"""
+        """the test method [testModelPredictionFallback] checks the model prediction when no immediate moves available"""
         
-        # Mock model output
+        # mock model output
         mock_softmax.return_value = torch.tensor([0.1, 0.5, 0.4])
         self.agent.model = MagicMock()
         self.agent.model.return_value = torch.tensor([[1, 2, 3]])
@@ -136,7 +135,7 @@ class TestAIAgentMethods(unittest.TestCase):
 
 
     def testFullColumnHandling(self):
-        """Test behavior when trying to play in full column"""
+        """the test method [testFullColumnHandling] checks the behavior when trying to play in full column"""
         
         full_col_board = [
             ["●", " ", " ", " ", " ", " ", " "],

@@ -12,7 +12,7 @@ def play_game_vs_agent():
     
     # create gameboard and agent
     board = GameBoard(AMOUNT_ROWS, AMOUNT_COLUMNS)
-    agent = AIAgent(USED_MODEL_PATH, PLAYER_ONE_SYMBOL)
+    agent = AIAgent("src/agents/ml_agent/models/connect4_model_good_performance.pth", PLAYER_ONE_SYMBOL)
     
     # game interrations 
     while True:
