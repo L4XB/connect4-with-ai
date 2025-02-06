@@ -3,23 +3,28 @@ from unittest.mock import patch, MagicMock
 import torch
 import numpy as np
 from src.agents.ml_agent.agent import AIAgent
-from src.constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL, AMOUNT_COLUMNS, AMOUNT_ROWS
+from src.constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL, AMOUNT_COLUMNS, AMOUNT_ROWS, USED_MODEL_PATH, TEST_MODEL_PATH
 
 class TestAIAgentMethods(unittest.TestCase):
     
     def __init__(self, methodName="runAIAgentTests"):
         super().__init__(methodName)
-        self.model_path = "src/agents/ml_agent/models/connect4_model_full_trained.pth"
+        
+        # sets the model path for the tests
+        self.model_path = TEST_MODEL_PATH
+        
+        # assigns the symbols
         self.symbol = PLAYER_ONE_SYMBOL
         self.opponent_symbol = PLAYER_TWO_SYMBOL
         
-        # Echtes Modell laden
+        # creates a AiAgent object with the model path to test it
         self.agent = AIAgent(self.model_path, self.symbol)
 
 
     def testInitialization(self):
-        """Test if agent initializes correctly with given parameters"""
+        """the tests method [testInitialization] tests if the setup in the [__init__] was succesfull"""
         
+        # checks every assertion from the [__init__]
         self.assertEqual(self.agent.symbol, self.symbol)
         self.assertEqual(self.agent.opponent_symbol, self.opponent_symbol)
         self.assertEqual(self.agent.cols, AMOUNT_COLUMNS)
@@ -28,9 +33,10 @@ class TestAIAgentMethods(unittest.TestCase):
 
 
     def testBoardToTensorConversion(self):
-        """Test the board to tensor conversion with different board states"""
-        # Test empty board
+        """the test method [testBoardToTensorConversion] checks the board to tensor conversion with different 
+        board states during the game"""
         
+        # test with empty board
         empty_board = [
             [" ", " ", " ", " ", " ", " ", " "],
             [" ", " ", " ", " ", " ", " ", " "],
@@ -39,11 +45,17 @@ class TestAIAgentMethods(unittest.TestCase):
             [" ", " ", " ", " ", " ", " ", " "],
             [" ", " ", " ", " ", " ", " ", " "]
         ]
+        
+        # coverts the empty_board to a tensore
         tensor = self.agent.board_to_tensor(empty_board)
+        
+        # tests the shae of the tensor
         self.assertEqual(tensor.shape, (1, 2, AMOUNT_ROWS, AMOUNT_COLUMNS))
+        
+        # checks if all elements in the tensor a 0
         self.assertTrue((tensor == 0).all())
 
-        # Test board with some moves
+        # test board with some random moves
         test_board = [
             [" ", " ", " ", "○", " ", " ", " "],
             [" ", " ", " ", "●", " ", " ", " "],
@@ -52,7 +64,11 @@ class TestAIAgentMethods(unittest.TestCase):
             [" ", " ", " ", "●", " ", " ", " "],
             [" ", " ", " ", "○", " ", " ", " "]
         ]
+        
+        # converts the test_board to a tensor
         tensor = self.agent.board_to_tensor(test_board)
+        
+        # checks if the tensor shape is correct
         self.assertEqual(tensor.shape, (1, 2, AMOUNT_ROWS, AMOUNT_COLUMNS))
 
 
