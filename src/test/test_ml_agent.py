@@ -1,1 +1,137 @@
-# TODO: write tests
+import unittest
+from unittest.mock import patch, MagicMock
+import torch
+import numpy as np
+from src.agents.ml_agent.agent import AIAgent
+from src.constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL, AMOUNT_COLUMNS, AMOUNT_ROWS
+
+class TestAIAgentMethods(unittest.TestCase):
+    
+    def __init__(self, methodName="runAIAgentTests"):
+        super().__init__(methodName)
+        self.model_path = "src/agents/ml_agent/models/connect4_model_full_trained.pth"
+        self.symbol = PLAYER_ONE_SYMBOL
+        self.opponent_symbol = PLAYER_TWO_SYMBOL
+        
+        # Echtes Modell laden
+        self.agent = AIAgent(self.model_path, self.symbol)
+
+
+    def testInitialization(self):
+        """Test if agent initializes correctly with given parameters"""
+        
+        self.assertEqual(self.agent.symbol, self.symbol)
+        self.assertEqual(self.agent.opponent_symbol, self.opponent_symbol)
+        self.assertEqual(self.agent.cols, AMOUNT_COLUMNS)
+        self.assertEqual(self.agent.rows, AMOUNT_ROWS)
+        self.assertTrue(self.agent.model.training is False)
+
+
+    def testBoardToTensorConversion(self):
+        """Test the board to tensor conversion with different board states"""
+        # Test empty board
+        
+        empty_board = [
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "]
+        ]
+        tensor = self.agent.board_to_tensor(empty_board)
+        self.assertEqual(tensor.shape, (1, 2, AMOUNT_ROWS, AMOUNT_COLUMNS))
+        self.assertTrue((tensor == 0).all())
+
+        # Test board with some moves
+        test_board = [
+            [" ", " ", " ", "○", " ", " ", " "],
+            [" ", " ", " ", "●", " ", " ", " "],
+            [" ", " ", " ", "●", " ", " ", " "],
+            [" ", " ", " ", "○", " ", " ", " "],
+            [" ", " ", " ", "●", " ", " ", " "],
+            [" ", " ", " ", "○", " ", " ", " "]
+        ]
+        tensor = self.agent.board_to_tensor(test_board)
+        self.assertEqual(tensor.shape, (1, 2, AMOUNT_ROWS, AMOUNT_COLUMNS))
+
+
+
+    def testPossibleMovesDetection(self):
+        """Test detection of available columns"""
+        
+        # Test empty board
+        empty_board = [[" "]*AMOUNT_COLUMNS for _ in range(AMOUNT_ROWS)]
+        moves = self.agent._get_possible_moves(empty_board)
+        self.assertEqual(moves, list(range(AMOUNT_COLUMNS)))
+
+        # Test partially filled board
+        test_board = [
+            [" ", " ", " ", "○", " ", " ", " "],
+            [" ", " ", " ", "●", " ", " ", " "],
+            [" ", " ", " ", "●", " ", " ", " "],
+            [" ", " ", " ", "○", " ", " ", " "],
+            [" ", " ", " ", "●", " ", " ", " "],
+            ["●", "○", " ", "○", "●", " ", " "]
+        ]
+        moves = self.agent._get_possible_moves(test_board)
+        self.assertEqual(moves, [0,1,2,4,5,6])
+
+
+    def testMovePlayingMechanics(self):
+        """Test token placement mechanics"""
+        
+        test_board = [[" "]*AMOUNT_COLUMNS for _ in range(AMOUNT_ROWS)]
+        
+        # Test valid move
+        new_board = self.agent._play_move(test_board, 3, self.symbol)
+        self.assertEqual(new_board[5][3], self.symbol)
+        
+        # Test filling column
+        for _ in range(AMOUNT_ROWS):
+            new_board = self.agent._play_move(new_board, 3, self.symbol)
+        self.assertEqual(new_board[0][3], self.symbol)
+        
+        # Test invalid column
+        invalid_board = self.agent._play_move(test_board, -1, self.symbol)
+        self.assertFalse(invalid_board)
+
+
+    @patch('torch.softmax')
+    def testModelPredictionFallback(self, mock_softmax):
+        """Test model prediction when no immediate moves available"""
+        
+        # Mock model output
+        mock_softmax.return_value = torch.tensor([0.1, 0.5, 0.4])
+        self.agent.model = MagicMock()
+        self.agent.model.return_value = torch.tensor([[1, 2, 3]])
+
+        test_board = [
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", "●", "○", " ", " ", " "],
+            [" ", " ", "●", "○", " ", " ", " "],
+            [" ", " ", "●", "○", " ", " ", " "]
+        ]
+        
+        move = self.agent.get_move(test_board)
+        self.assertIn(move, [0,1,2,3,4,5,6])
+
+
+    def testFullColumnHandling(self):
+        """Test behavior when trying to play in full column"""
+        
+        full_col_board = [
+            ["●", " ", " ", " ", " ", " ", " "],
+            ["●", " ", " ", " ", " ", " ", " "],
+            ["●", " ", " ", " ", " ", " ", " "],
+            ["●", " ", " ", " ", " ", " ", " "],
+            ["●", " ", " ", " ", " ", " ", " "],
+            ["●", " ", " ", " ", " ", " ", " "]
+        ]
+        moves = self.agent._get_possible_moves(full_col_board)
+        self.assertNotIn(0, moves)
+
+
+unittest.main()
