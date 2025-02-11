@@ -3,10 +3,15 @@
 Welcome to the **Connect 4 AI Agents** project! This repository contains a collection of AI agents designed to play the classic game of Connect 4. The agents range from simple random decision-makers to more advanced ones like the MiniMax and ML-based agents. Below, you'll find all the necessary information to get started, evaluate the agents, and even play against them!
 
 
-
 ## 🚀 Getting Started
 
 To get started, clone this repository and ensure you have Python 3 installed. All commands should be executed from the **root directory** of the project.
+
+
+
+### 🐍 Python Version and Virtual Environment
+
+This project is developed and tested using **Python 3.12.8**. To ensure compatibility, it's recommended to use the same version a virtual environment (`.venv`).
 
 
 
@@ -53,48 +58,6 @@ The evaluation results will include graphs and metrics to compare the agents' pe
 
 
 
-### 📁 Project Structure
-
-Here’s an overview of the project structure:
-
-.
-├── .gitignore
-├── credits.md
-├── readme.md
-├── requirements.txt
-└── src
-    ├── agents
-    │   ├── mini_max_agent.py
-    │   ├── ml_agent
-    │   │   ├── agent.py
-    │   │   ├── data
-    │   │   ├── model.py
-    │   │   ├── pipe
-    │   │   │   ├── data_loader.py
-    │   │   │   ├── trainer.py
-    │   │   │   └── training_data_generator.py
-    │   │   └── models
-    │   ├── random_agent.py
-    │   └── smart_agent.py
-    ├── evaluation
-    │   ├── evaluation.py
-    │   ├── graphics
-    │   │   ├── 3d_minimax_vs._ml.png
-    │   │   ├── random_vs._smart.png
-    │   │   └── smart_vs.3d_minimax.png
-    ├── game
-    │   ├── board.py
-    │   ├── game.py
-    │   └── play_game.py
-    └── test
-        ├── test_game_board.py
-        ├── test_mini_max_agent.py
-        ├── test_ml_agent.py
-        ├── test_random_agent.py
-        └── test_smart_agent.py
-
-
-
 ### 📈 Evaluation Graphs
 
 Here are some key graphs generated during the evaluation:
@@ -115,7 +78,3 @@ Here are some key graphs generated during the evaluation:
 ### 📚 Credits
 
 For a list of resources, libraries, and tools used in this project, check out the `credits.md` file. It includes links and acknowledgments for everything that helped make this project possible.
-
----
-
-Enjoy playing with and exploring the Connect 4 AI Agents! If you have any questions or suggestions, feel free to open an issue or contribute to the project. 🚀

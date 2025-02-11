@@ -80,19 +80,19 @@ class TestMiniMaxAgentMethods(unittest.TestCase):
         
         # test three opponent symbols
         opponent_line = [self.minimax_agent.opponent_symbol] * 3 + [" "]
-        self.assertEqual(self.minimax_agent._evaluate_line(opponent_line), -100)
+        self.assertEqual(self.minimax_agent._evaluate_line(opponent_line), -500)
         
         # test three player symbols
         player_line = [self.minimax_agent.symbol] * 3 + [" "]
-        self.assertEqual(self.minimax_agent._evaluate_line(player_line), 50)
+        self.assertEqual(self.minimax_agent._evaluate_line(player_line), 100)
         
         # test two player symbols
         two_player_line = [self.minimax_agent.symbol] * 2 + [" ", " "]
-        self.assertEqual(self.minimax_agent._evaluate_line(two_player_line), 10)
+        self.assertEqual(self.minimax_agent._evaluate_line(two_player_line), 20)
         
         # test one player symbol
         one_player_line = [self.minimax_agent.symbol] + [" "] * 3
-        self.assertEqual(self.minimax_agent._evaluate_line(one_player_line), 1)
+        self.assertEqual(self.minimax_agent._evaluate_line(one_player_line), 2)
         
         # test mixed line
         mixed_line = [self.minimax_agent.symbol, self.minimax_agent.opponent_symbol, " ", " "]
