@@ -78,6 +78,8 @@
  ○ https://medium.com/towards-artificial-intelligence/do-this-instead-of-watching-endless-tutorials-how-id-learn-machine-learning-fast-d2805b690f91
     -> Got also some nice inforamtions abount workflows and what i need in my code from here
 
+ ○ And more or less 50 Stackoverflow Issus ^^
+
 
 ### Inspiration
 
