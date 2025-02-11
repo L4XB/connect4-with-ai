@@ -120,6 +120,7 @@ class GameSimulator:
         # plot result of game simmulation
         self._plot_results(num_games)
     
+    
     def _print_results(self, num_games):
         '''
         the privat method [_print_results] can be used to print the result of the messuremnts of one
