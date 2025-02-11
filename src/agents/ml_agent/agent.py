@@ -32,7 +32,6 @@ class AIAgent:
         it uses the model to predict the best move.
         '''
         
-        # check for winning move
         possible_moves = self._get_possible_moves(board)
 
         # check for winning move
