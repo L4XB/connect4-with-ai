@@ -72,9 +72,6 @@
  ○ 
 
 
-### Innovation & Beyond
-
-
 ### Inspiration
 
  ○ https://github.com/ForrestKnight/ConnectFour/blob/master/AIClass.py

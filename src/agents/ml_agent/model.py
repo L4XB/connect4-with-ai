@@ -5,7 +5,7 @@ class Connect4CNN(nn.Module):
     def __init__(self):
         super().__init__()
         '''
-        Define the layers of the neural network:
+        define the layers of the neural network:
         - conv1: first convolutional layer with 2 input channels, 128 output channels, and a kernel size of 3 with padding 1
         - bn1: first batch normalization layer for 128 channels
         - conv2: second convolutional layer with 128 input channels, 128 output channels, and a kernel size of 3 with padding 1
@@ -29,7 +29,7 @@ class Connect4CNN(nn.Module):
 
     def forward(self, x):
         '''
-        the method [forward] is used to Define the forward pass of the neural network and pass the data trough the
+        the method [forward] is used to define the forward pass of the neural network and pass the data trough the
         diffrent layers.
         '''
         x = F.relu(self.bn1(self.conv1(x)))
