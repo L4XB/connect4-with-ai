@@ -75,6 +75,9 @@
  ○ https://medium.com/towards-data-science/understanding-llms-from-scratch-using-middle-school-math-e602d27ec876
     -> Best Article about AI/DL/LLMs im ever read
 
+ ○ https://medium.com/towards-artificial-intelligence/do-this-instead-of-watching-endless-tutorials-how-id-learn-machine-learning-fast-d2805b690f91
+    -> Got also some nice inforamtions abount workflows and what i need in my code from here
+
 
 ### Inspiration
 
