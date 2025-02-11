@@ -71,6 +71,9 @@
 
  ○ https://medium.com/towards-data-science/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53
     -> Got some very cool inforations from this article
+   
+ ○ https://medium.com/towards-data-science/understanding-llms-from-scratch-using-middle-school-math-e602d27ec876
+    -> Best Article about AI/DL/LLMs im ever read
 
 
 ### Inspiration
