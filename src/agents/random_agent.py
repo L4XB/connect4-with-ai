@@ -1,4 +1,5 @@
 import random as rd
+from src.constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
 
 class RandomAgent:
     
@@ -9,6 +10,9 @@ class RandomAgent:
         
         # assign a symbol to the agent
         self.symbol = symbol
+        
+        # assigns the other symbol to the other player
+        self.opponent_symbol = PLAYER_TWO_SYMBOL if symbol == PLAYER_ONE_SYMBOL else PLAYER_ONE_SYMBOL
         
         
     

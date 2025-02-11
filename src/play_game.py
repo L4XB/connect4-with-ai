@@ -1,6 +1,9 @@
 from src.constants import AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL
 from src.enviroment.game_board import GameBoard
 from src.agents.ml_agent.agent import AIAgent
+from src.agents.mini_max_agent import MiniMaxAgent
+from src.agents.smart_agent import SmartAgent
+from src.agents.random_agent import RandomAgent
 
 def play_game_vs_agent():
     '''
@@ -9,9 +12,26 @@ def play_game_vs_agent():
     their moves after each other until one of them wins or it ends in a draw.
     '''
     
-    # create gameboard and agent
+    # create gameboard
     board = GameBoard(AMOUNT_ROWS, AMOUNT_COLUMNS)
-    agent = AIAgent("src/agents/ml_agent/models/connect4_model_full_trained.pth", PLAYER_ONE_SYMBOL)
+    
+    # ask which agent to play against
+    while True:
+        agent_type = input("Which agent do you want to play against? Enter 'ml', 'minimax', 'smart', or 'random': ").strip().lower()
+        if agent_type == 'ml':
+            agent = AIAgent("src/agents/ml_agent/models/connect4_model_full_trained.pth", PLAYER_ONE_SYMBOL)
+            break
+        elif agent_type == 'minimax':
+            agent = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL)
+            break
+        elif agent_type == 'smart':
+            agent = SmartAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL)
+            break
+        elif agent_type == 'random':
+            agent = RandomAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL)
+            break
+        else:
+            print("Invalid input. Please enter 'ml', 'minimax', 'smart', or 'random'.")
     
     # ask who should start the game
     while True:
