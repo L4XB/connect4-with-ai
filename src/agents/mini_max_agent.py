@@ -2,8 +2,9 @@ import random as rd
 import copy
 import math
 from src.constants import PLAYER_ONE_SYMBOL, PLAYER_TWO_SYMBOL
+
 class MiniMaxAgent:
-    def __init__(self, rows, cols, symbol, max_depth=4):
+    def __init__(self, rows, cols, symbol, max_depth = 2):
         # attributes [rows] & [cols] are used to get the deffined size of the board
         self.rows = rows
         self.cols = cols
@@ -16,7 +17,6 @@ class MiniMaxAgent:
         
         # number of moves that calculated bevor desicion
         self.max_depth = max_depth
-
 
     def get_move(self, board):
         '''
@@ -59,7 +59,6 @@ class MiniMaxAgent:
                 best_moves.append(col)
         # return on of the best moves random, if there are no good moves it return a random move.
         return rd.choice(best_moves) if best_moves else self._random_move(board)
-
 
     def _minimax(self, board, depth, alpha, beta, maximizing_player):
         '''
@@ -128,15 +127,33 @@ class MiniMaxAgent:
 
     def _heuristic_evaluation(self, board):
         '''
-        the private method [_heuristic_evaluation] calculates a score of the evaluation of all lines
-        and returns this score.
+        The private method [_heuristic_evaluation] calculates a score of the evaluation of all lines
+        and returns this score. It includes:
+        1. line evaluations (horizontal, vertical, diagonal)
+        2. center control bonus
+        3. threat detection (immediate wins/blocks)
         '''
         
         score = 0
         
-        # evaluate all possible lines
+        # Evaluate all possible lines
         for line in self._get_all_lines(board):
             score += self._evaluate_line(line)
+        
+        # add center control bonus
+        center_columns = [2, 3, 4] 
+        for row in range(self.rows):
+            for col in center_columns:
+                if board[row][col] == self.symbol:
+                    score += 3 
+                elif board[row][col] == self.opponent_symbol:
+                    score -= 3 
+        
+        for col in range(self.cols):
+            if self._is_winning_move(board, col, self.symbol):
+                score += 1000
+            if self._is_winning_move(board, col, self.opponent_symbol):
+                score -= 1000
         
         return score
 
@@ -152,14 +169,10 @@ class MiniMaxAgent:
         opponent_count = line.count(self.opponent_symbol)
         
         # returns diffrent evaluations fr diffrent states.
-        if opponent_count == 3 and player_count == 0:
-            return -100
-        if player_count == 3 and opponent_count == 0:
-            return 50
-        if player_count == 2 and opponent_count == 0:
-            return 10
-        if player_count == 1 and opponent_count == 0:
-            return 1
+        if opponent_count == 3 and player_count == 0: return -500
+        if player_count == 3 and opponent_count == 0: return 100
+        if player_count == 2 and opponent_count == 0: return 20
+        if player_count == 1 and opponent_count == 0: return 2
         return 0
 
 
@@ -191,7 +204,6 @@ class MiniMaxAgent:
         # returns the list with all lines
         return lines
 
-
     def _is_terminal(self, board):
         '''
         the private method [_is_terminal] can be used to check if a game on a board [board] has
@@ -200,7 +212,6 @@ class MiniMaxAgent:
         return (self._check_winner(board, self.symbol) or 
                 self._check_winner(board, self.opponent_symbol) or 
                 len(self._get_possible_moves(board)) == 0)
-
 
     def _check_winner(self, board, symbol):
         '''
@@ -229,7 +240,6 @@ class MiniMaxAgent:
                     return True
         return False
 
-
     def _is_winning_move(self, board, col, symbol):
         '''
         the private method [_is_winning_move] checks if a move in a column [col] with the
@@ -242,7 +252,6 @@ class MiniMaxAgent:
             return self._check_winner(temp_board, symbol)
         return False
 
-
     def _random_move(self, board):
         '''
         the private method [_random_move] returns a random possible move on 
@@ -252,7 +261,6 @@ class MiniMaxAgent:
         possible_cols = self._get_possible_moves(board)
         # retuns a random possible move if availible 
         return rd.choice(possible_cols) if possible_cols else None
-
 
     def _get_possible_moves(self, board):
         '''
@@ -264,7 +272,6 @@ class MiniMaxAgent:
             if board[0][col] == ' ':
                 possible_moves.append(col)
         return possible_moves
-
 
     def _play_move(self, board, col, symbol):
         '''

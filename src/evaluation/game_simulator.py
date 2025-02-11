@@ -4,7 +4,6 @@ import time
 import matplotlib.pyplot as plt
 import psutil
 import os
-import math
 
 class GameSimulator:
     def __init__(self, agent1, agent1_symbol, agent2, agent2_symbol):
@@ -174,9 +173,12 @@ class GameSimulator:
         plt.title('Win Rates')
         plt.ylabel('Number of Games')
 
-        # plot game lenghts
+        # plot game lengths
         plt.subplot(2, 3, 2)
-        plt.hist(self.game_lengths, bins=range(min(self.game_lengths), max(self.game_lengths)+1), alpha=0.75, color='purple')
+        if len(set(self.game_lengths)) == 1:
+            plt.hist(self.game_lengths, bins=1, alpha=0.75, color='purple')
+        else:
+            plt.hist(self.game_lengths, bins=range(min(self.game_lengths), max(self.game_lengths)+1), alpha=0.75, color='purple')
         plt.title('Game Length Distribution')
         plt.xlabel('Moves')
         plt.ylabel('Frequency')

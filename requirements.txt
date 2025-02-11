@@ -1,7 +1,6 @@
 torch
 matplotlib
 psutil
-ucimlrepo
 scikit-learn
 pandas
 tqdm
