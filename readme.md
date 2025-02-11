@@ -66,12 +66,12 @@ Here are some key graphs generated during the evaluation:
    ![Training Loss](src/agents/ml_agent/pipe/training_loss.png)
 
 2. **Agent Performance Comparisons**  
-   - **Minimax vs. ML**  
-     ![Minimax vs. ML](src/evaluation/graphics/3d_minimax_vs._ml.png)
-   - **Random vs. Smart**  
+**Random vs. Smart**  
      ![Random vs. Smart](src/evaluation/graphics/random_vs._smart.png)
-   - **Smart vs. Minimax**  
+**Smart vs. Minimax**  
      ![Smart vs. Minimax](src/evaluation/graphics/smart_vs.3d_minimax.png)
+**Minimax vs. ML**  
+     ![Minimax vs. ML](src/evaluation/graphics/3d_minimax_vs._ml.png)
 
 
 
