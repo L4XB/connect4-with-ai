@@ -43,6 +43,8 @@
  ○ https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-1-introduction/
     -> To get a better Understanding of the topic
 
+ ○ And more or less 15 Stackoverflow Issus ^^
+
 
 ### Ml Agent
 
@@ -95,6 +97,8 @@
  ○ https://pypi.org/project/psutil/
     -> To read Memory usage
 
+ ○ And more or less 20 Stackoverflow Issus ^^
+
 
 ### Evaluation Graphics
 
@@ -103,6 +107,8 @@
 
  ○ https://www.w3schools.com/python/matplotlib_bars.asp
     -> Got some informations how to combine graphics from here
+
+ ○ And more or less 15 Stackoverflow Issus ^^
 
 
 ### Unit Tests
