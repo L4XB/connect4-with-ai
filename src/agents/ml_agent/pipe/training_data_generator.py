@@ -70,7 +70,6 @@ def generate_data(num_games=1000, depth=2):
 
         data.extend(game_history)
 
-    print(f"Generated {len(data)} samples")
     with open(f"connect4_data_{depth}d_{num_games}g.pkl", "wb") as f:
         pickle.dump(augment_data(data), f)
     print(f"Generated {len(data)} samples")

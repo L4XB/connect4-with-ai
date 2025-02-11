@@ -66,10 +66,11 @@
  ○ https://www.youtube.com/watch?v=wnK3uWv_WkU
     -> Got some nice informations about CNN's from here 
 
- ○ 
+ ○ https://pyimagesearch.com/2021/07/19/pytorch-training-your-first-convolutional-neural-network-cnn/
+    -> Got some additional informations abount CNN's from here
 
-
- ○ 
+ ○ https://medium.com/towards-data-science/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53
+    -> Got some very cool inforations from this article
 
 
 ### Inspiration
@@ -100,3 +101,6 @@
 
  ○ https://docs.python.org/3/library/unittest.html
     -> To better unserstand how unittest in python work
+
+ ○ https://www.obeythetestinggoat.com/book/chapter_13_organising_test_files.html
+    -> Unit Tests in diffrent files
