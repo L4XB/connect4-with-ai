@@ -11,7 +11,7 @@ To get started, clone this repository and ensure you have Python 3 installed. Al
 
 ### 🐍 Python Version and Virtual Environment
 
-This project is developed and tested using **Python 3.12.8**. To ensure compatibility, it's recommended to use the same version a virtual environment (`.venv`).
+This project is developed and tested using **Python 3.12.8**. To ensure compatibility, it's recommended to use the same version in a virtual environment (`.venv`).
 
 
 
