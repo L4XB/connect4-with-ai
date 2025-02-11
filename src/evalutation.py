@@ -14,13 +14,13 @@ from src.agents.ml_agent.agent import AIAgent
 # simulator.simulate(500)
 
 # -> smart agent vs. minimax agent
-smart = SmartAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL)
-minimax_agent = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_TWO_SYMBOL, max_depth = 3)
-simulator = GameSimulator(smart, PLAYER_ONE_SYMBOL, minimax_agent, PLAYER_TWO_SYMBOL)
-simulator.simulate(500)
+# smart = SmartAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL)
+# minimax_agent = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_TWO_SYMBOL, max_depth = 3)
+# simulator = GameSimulator(smart, PLAYER_ONE_SYMBOL, minimax_agent, PLAYER_TWO_SYMBOL)
+# simulator.simulate(500)
 
 # -> minimax agent vs. ml agent
-# minimax_agent = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL, max_depth = 3)
-# ai_agent = AIAgent("src/agents/ml_agent/models/connect4_model_full_trained.pth", PLAYER_TWO_SYMBOL)
-# simulator = GameSimulator(minimax_agent, PLAYER_ONE_SYMBOL, ai_agent, PLAYER_TWO_SYMBOL)
-# simulator.simulate(20)
+minimax_agent = MiniMaxAgent(AMOUNT_ROWS, AMOUNT_COLUMNS, PLAYER_ONE_SYMBOL, max_depth = 3)
+ai_agent = AIAgent("src/agents/ml_agent/models/connect4_model_full_trained.pth", PLAYER_TWO_SYMBOL)
+simulator = GameSimulator(minimax_agent, PLAYER_ONE_SYMBOL, ai_agent, PLAYER_TWO_SYMBOL)
+simulator.simulate(500)
