@@ -64,7 +64,7 @@ class Connect4Dataset(Dataset):
     def board_to_tensor(self, state):
         '''
         the method [board_to_tensor] converts the board state to a tensor format.
-        It handles both 2D and flattened state formats.
+        it handles both 2D and flattened state formats.
         '''
         
         # Handle both 2D and flattened state formats
