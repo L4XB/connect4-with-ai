@@ -127,7 +127,7 @@ class MiniMaxAgent:
 
     def _heuristic_evaluation(self, board):
         '''
-        The private method [_heuristic_evaluation] calculates a score of the evaluation of all lines
+        the private method [_heuristic_evaluation] calculates a score of the evaluation of all lines
         and returns this score. It includes:
         1. line evaluations (horizontal, vertical, diagonal)
         2. center control bonus
@@ -136,11 +136,11 @@ class MiniMaxAgent:
         
         score = 0
         
-        # Evaluate all possible lines
+        # evaluate all possible lines
         for line in self._get_all_lines(board):
             score += self._evaluate_line(line)
         
-        # add center control bonus
+        # center control bonus
         center_columns = [2, 3, 4] 
         for row in range(self.rows):
             for col in center_columns:
